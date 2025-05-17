@@ -127,20 +127,6 @@
     font-size: 0.4em;
     font-weight: bold;
     margin-top: 1.5vh;
-    color: white;
-}
-
-.employee-counter {
-    color: var(--blue-color);
-}
-
-/* New Employee SVG */
-.new-employee-svg {
-    display: flex;
-    width: 15px;
-    height: 15px;
-    justify-content: center;
-    align-items: center;
 }
 
 .employee-bubble.user-avatar-photo {
@@ -163,21 +149,6 @@
     width: 30px;
     height: 30px;
     stroke: var(--blue-color);
-}
-
-.department-block {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.subdepartment-block {
-    display: flex;
-}
-
-.department-team {
-    display: flex;
-    align-items: center;
 }
 
 /* Department Title */
@@ -237,4 +208,8 @@
 .department .employees-list {
     display: flex;
     flex-direction: column;
+}
+
+.department .employee-bubble {
+    font-size: 0.65em;
 }
