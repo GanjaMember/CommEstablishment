@@ -34,21 +34,18 @@
                     <div class="main-block-title" style="margin-left: 1.5vw;">Сотрудники</div>
                 </div>
                 <div class="main-block-content">
-                    <div class="action-bar" id="header-action-bar">
-                        <a class="action-link">Добавить сотрудника</a>
+                    <div class="action-bar">
+                        <a class="action-link" id="add-link">Добавить сотрудника</a>
                     </div>
-                    <div class="action-bar" id="header-action-bar">
-                        <a class="action-link">Редактировать сотрудника</a>
-                    </div>
-                    <div class="action-bar" id="header-action-bar">
-                        <a class="action-link">Удалить сотрудника</a>
+                    <div class="action-bar">
+                        <a class="action-link" id="delete-link">Удалить сотрудника</a>
                     </div>
                     <div class="employees">
                         <div class="list-titles">
                             <div>Имя</div>
                             <div>Почта</div>
                             <div>Роль</div>
-                            <div>Отдел</div>
+                            <div>Проект</div>
                         </div>
                         <div>
                             <div>
@@ -87,5 +84,56 @@
             </div>
         </div>
     </div>
+
+    <!-- Модальное окно для добавления сотрудника -->
+    <div class="modal-overlay" id="addEmployeeModal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Добавить сотрудника</h2>
+            <form id="addEmployeeForm">
+                <div class="form-group">
+                    <label for="employeeName">Имя:</label>
+                    <input type="text" id="employeeName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeEmail">Почта:</label>
+                    <input type="email" id="employeeEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeRole">Роль:</label>
+                    <input type="text" id="employeeRole" name="role">
+                </div>
+                <div class="form-group">
+                    <label for="employeeProject">Проект:</label>
+                    <input type="text" id="employeeProject" name="project">
+                </div>
+                <button type="submit">Сохранить</button>
+                <button type="button" class="cancel-button">Отмена</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для удаления сотрудника -->
+    <div class="modal-overlay" id="deleteEmployeeModal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Удалить сотрудника</h2>
+            <form id="deleteEmployeeForm">
+                <div class="form-group">
+                    <label for="employeeName">Имя:</label>
+                    <input type="text" id="employeeName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeEmail">Почта:</label>
+                    <input type="email" id="employeeEmail" name="email" required>
+                </div>
+                <button type="submit">Сохранить</button>
+                <button type="button" class="cancel-button">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="static/js/deleteEmployee.js"></script>
+    <script src="static/js/addEmployee.js"></script>
 </body>
 </html>

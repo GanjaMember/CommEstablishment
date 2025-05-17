@@ -17,3 +17,97 @@
     margin-top: 5vh;
 }
 
+/* Стили для модального окна */
+.modal-overlay {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Фиксированное положение */
+    z-index: 1000; /* Поверх всего */
+    left: 0;
+    top: 0;
+    width: 100%; /* На всю ширину */
+    height: 100%; /* На всю высоту */
+    overflow: auto; /* Включить прокрутку, если содержимое слишком большое */
+    background-color: rgba(0, 0, 0, 0.6); /* Полупрозрачный черный фон */
+    justify-content: center; /* Центрирование содержимого по горизонтали */
+    align-items: center; /* Центрирование содержимого по вертикали */
+}
+
+.modal-content {
+    background-color: #fff; /* Белый фон формы */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%; /* Ширина формы */
+    max-width: 500px; /* Максимальная ширина */
+    position: relative; /* Для позиционирования кнопки закрытия */
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block; /* Каждая метка на новой строке */
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: calc(100% - 22px); /* Ширина поля минус padding и border */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.modal-content button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-content button[type="submit"] {
+    background-color: #008CF0;
+    color: white;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: #0073c4;
+}
+
+.modal-content .cancel-button {
+    background-color: #008CF0; 
+    color: white;
+}
+
+.modal-content .cancel-button:hover {
+    background-color: #0073c4;
+}
