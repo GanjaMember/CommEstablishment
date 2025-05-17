@@ -1,0 +1,215 @@
+/* General Layout */
+.main-content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.wrapper {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Main Block Styles */
+.main-block {
+    background-color: var(--white-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-color) 0px 1px 3px 0px, var(--shadow-color) 0px 1px 2px -1px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-block-heading {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--side-nav-bg-color);
+}
+
+.main-block-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.main-block-content {
+    padding: 15px 20px;
+    flex-grow: 1;
+}
+
+/* Action Bar and Buttons */
+.action-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.action-link {
+    color: var(--blue-color);
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+.blue-button {
+    display: inline-block;
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-right: 10px;
+}
+
+.blue-button:hover {
+    background-color: var(--dark-blue-color);
+}
+
+/* Project Card Styles */
+.project-card {
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 15px;
+    width: 200px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Project Card List */
+.project-card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    align-items: stretch;
+}
+
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-card-heading {
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.project-card-index {
+    font-size: 0.8em;
+    color: var(--gray-color);
+}
+
+/* Employee List and Bubbles */
+.project-card-list .employees-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1px;
+}
+
+.employee-bubble {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--body-bg-color);
+    color: var(--gray-color);
+    font-size: 0.4em;
+    font-weight: bold;
+    margin-top: 1.5vh;
+}
+
+.employee-bubble.user-avatar-photo {
+    background-image: url("../images/profile-image.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Project Card Empty State */
+.project-card.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-color);
+    height: 100px;
+}
+
+.project-card.empty svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--blue-color);
+}
+
+/* Department Title */
+.department-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Separator Line */
+.gray-vertical-line {
+    width: 1px;
+    height: 15px;
+    background-color: var(--border-color);
+    margin: 10px 5px;
+}
+
+/* List/Table Structures */
+.list-titles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Company Actions */
+.company-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Project Card SVG */
+.project-card svg {
+    stroke: var(--blue-color);
+}
+
+/* Target the employee list items specifically */
+.main-block .main-block-content > div > .list-titles + div > div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.main-block .main-block-content > div > .list-titles + div > div:last-child {
+    border-bottom: none;
+}
+
+.department .employees-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5vh;
+}
+
+.department .employees-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.department .employee-bubble {
+    font-size: 0.65em;
+}

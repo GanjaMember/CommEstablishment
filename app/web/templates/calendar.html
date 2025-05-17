@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/styles/base.css">
+    <link rel="stylesheet" href="./static/styles/nav-panel.css">
+    <link rel="stylesheet" href="./static/styles/calendar.css">
+    <title>Calendar</title>
+</head>
+<body>
+    <header>
+        <nav class="header-nav-panel">
+            <a href="index.html" class="logo"><img src="static/images/logo.png" alt=""></a>
+            <a href="#" class="active">Дашборд</a>
+            <a href="#">Компании</a>
+            <a href="#">Конфигурация</a>
+        </nav>
+    </header>
+    <div class="main-content">
+        <nav class="side-nav-panel">
+            <a href="company.html">Компания</a>
+            <a href="employees.html">Отделы</a>
+            <a href="calendar.html" class="active">Календарь</a>
+            <a href="#">Задачи и мероприятия</a>
+            <a href="#">Проекты</a>
+            <hr class="nav-divider">
+            <a href="#" class="assistant">AI-ассистент</a>
+        </nav>
+
+        <main>
+            <h2>Календарь</h2>
+
+            <div class="calendar-container">
+                <div class="ant-calendar">
+                    <div class="ant-picker-calendar-header">
+                        <div class="calendar-header-left">
+                            <button class="calendar-btn prev-month">&lt;</button>
+                            <select class="ant-select month-select">
+                                <option value="0">Январь</option>
+                                <option value="1">Февраль</option>
+                                <option value="2">Март</option>
+                                <option value="3">Апрель</option>
+                                <option value="4" selected>Май</option>
+                                <option value="5">Июнь</option>
+                                <option value="6">Июль</option>
+                                <option value="7">Август</option>
+                                <option value="8">Сентябрь</option>
+                                <option value="9">Октябрь</option>
+                                <option value="10">Ноябрь</option>
+                                <option value="11">Декабрь</option>
+                            </select>
+                            <select class="ant-select year-select">
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                            </select>
+                            <button class="calendar-btn next-month">&gt;</button>
+                        </div>
+                        <div class="calendar-header-right">
+                            <button class="calendar-view-btn active">Месяц</button>
+                            <button class="calendar-view-btn">Неделя</button>
+                            <button class="calendar-view-btn">День</button>
+                        </div>
+                    </div>
+
+                    <div class="ant-picker-calendar-body">
+                        <table class="ant-picker-content">
+                            <thead>
+                                <tr>
+                                    <th>Пн</th>
+                                    <th>Вт</th>
+                                    <th>Ср</th>
+                                    <th>Чт</th>
+                                    <th>Пт</th>
+                                    <th>Сб</th>
+                                    <th>Вс</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- First week -->
+                                <tr>
+                                    <td class="ant-picker-cell previous-month">
+                                        <div class="ant-picker-cell-inner">28</div>
+                                    </td>
+                                    <td class="ant-picker-cell previous-month">
+                                        <div class="ant-picker-cell-inner">29</div>
+                                    </td>
+                                    <td class="ant-picker-cell previous-month">
+                                        <div class="ant-picker-cell-inner">30</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">1</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">2</div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend">
+                                        <div class="ant-picker-cell-inner">3</div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend">
+                                        <div class="ant-picker-cell-inner">4</div>
+                                    </td>
+                                </tr>
+                                <!-- Second week -->
+                                <tr>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">5</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">6</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">7</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">8</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">9</div>
+                                        <div class="cell-events">
+                                            <div class="event-dot info"></div>
+                                        </div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend">
+                                        <div class="ant-picker-cell-inner">10</div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend">
+                                        <div class="ant-picker-cell-inner">11</div>
+                                    </td>
+                                </tr>
+                                <!-- Third week -->
+                                <tr>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">12</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">13</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">14</div>
+                                    </td>
+                                    <td class="ant-picker-cell has-events">
+                                        <div class="ant-picker-cell-inner">15</div>
+                                        <div class="cell-events">
+                                            <div class="event-dot success"></div>
+                                            <div class="event-dot warning"></div>
+                                        </div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">16</div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend today">
+                                        <div class="ant-picker-cell-inner">17</div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend">
+                                        <div class="ant-picker-cell-inner">18</div>
+                                    </td>
+                                </tr>
+                                <!-- Fourth week -->
+                                <tr>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">19</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">20</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">21</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">22</div>
+                                    </td>
+                                    <td class="ant-picker-cell has-events">
+                                        <div class="ant-picker-cell-inner">23</div>
+                                        <div class="cell-events">
+                                            <div class="event-dot danger"></div>
+                                        </div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend">
+                                        <div class="ant-picker-cell-inner">24</div>
+                                    </td>
+                                    <td class="ant-picker-cell weekend">
+                                        <div class="ant-picker-cell-inner">25</div>
+                                    </td>
+                                </tr>
+                                <!-- Fifth week -->
+                                <tr>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">26</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">27</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">28</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">29</div>
+                                    </td>
+                                    <td class="ant-picker-cell">
+                                        <div class="ant-picker-cell-inner">30</div>
+                                    </td>
+                                    <td class="ant-picker-cell next-month weekend">
+                                        <div class="ant-picker-cell-inner">31</div>
+                                    </td>
+                                    <td class="ant-picker-cell next-month weekend">
+                                        <div class="ant-picker-cell-inner">1</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <h3>События на 15 мая</h3>
+                    <ul class="events">
+                        <li>
+                            <span class="ant-badge-status ant-badge-status-success">10:00 Встреча с клиентом</span>
+                            <span class="event-info">Офис №3</span>
+                        </li>
+                        <li>
+                            <span class="ant-badge-status ant-badge-status-warning">14:30 Презентация проекта</span>
+                            <span class="event-info">Зал совещаний</span>
+                        </li>
+                    </ul>
+
+                    <div class="add-event">
+                        <button class="add-event-btn">Добавить событие</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Calendar data (pre-computed for demo purposes)
+        const calendarData = {
+            // January 2025 - 1st is Wednesday
+            "0-2025": {
+                previousMonthDays: [
+                    { day: 30, month: "previous" },
+                    { day: 31, month: "previous" }
+                ],
+                currentMonthDays: Array.from({ length: 31 }, (_, i) => ({
+                    day: i + 1,
+                    month: "current",
+                    isWeekend: (i + 3) % 7 === 0 || (i + 3) % 7 === 6
+                })),
+                nextMonthDays: [
+                    { day: 1, month: "next", isWeekend: false }
+                ],
+                events: {
+                    "8": [{ type: "success", time: "11:00", title: "Совещание команды", location: "Комната 101" }],
+                    "15": [{ type: "info", time: "14:00", title: "Встреча с партнерами", location: "Зал переговоров" }],
+                    "22": [
+                        { type: "warning", time: "10:30", title: "Презентация проекта", location: "Конференц-зал" },
+                        { type: "success", time: "15:00", title: "Обучение", location: "Учебный центр" }
+                    ]
+                }
+            },
+            // May 2025 - 1st is Thursday
+            "4-2025": {
+                previousMonthDays: [
+                    { day: 28, month: "previous" },
+                    { day: 29, month: "previous" },
+                    { day: 30, month: "previous" }
+                ],
+                currentMonthDays: Array.from({ length: 31 }, (_, i) => ({
+                    day: i + 1,
+                    month: "current",
+                    isWeekend: (i + 4) % 7 === 0 || (i + 4) % 7 === 6
+                })),
+                nextMonthDays: [
+                    { day: 1, month: "next", isWeekend: true }
+                ],
+                events: {
+                    "9": [{ type: "info", time: "09:00", title: "Брифинг", location: "Комната 202" }],
+                    "15": [
+                        { type: "success", time: "10:00", title: "Встреча с клиентом", location: "Офис №3" },
+                        { type: "warning", time: "14:30", title: "Презентация проекта", location: "Зал совещаний" }
+                    ],
+                    "23": [{ type: "danger", time: "16:00", title: "Дедлайн", location: "Онлайн" }]
+                }
+            }
+        };
+
+        // Get DOM elements
+        const monthSelect = document.querySelector('.month-select');
+        const yearSelect = document.querySelector('.year-select');
+        const prevMonthBtn = document.querySelector('.prev-month');
+        const nextMonthBtn = document.querySelector('.next-month');
+        const calendarBody = document.querySelector('.ant-picker-content tbody');
+        const eventsPanel = document.querySelector('.events-panel');
+
+        // Current date
+        let currentDate = new Date();
+        let selectedDate = {
+            day: 17, // Today is May 17, 2025
+            month: 4,
+            year: 2025
+        };
+
+        // Initialize calendar
+        function initCalendar() {
+            // Set current month and year in selects
+            monthSelect.value = selectedDate.month;
+            yearSelect.value = selectedDate.year;
+
+            // Render calendar
+            renderCalendar(selectedDate.month, selectedDate.year);
+
+            // Add event listeners
+            monthSelect.addEventListener('change', handleMonthYearChange);
+            yearSelect.addEventListener('change', handleMonthYearChange);
+            prevMonthBtn.addEventListener('click', goToPrevMonth);
+            nextMonthBtn.addEventListener('click', goToNextMonth);
+
+            // Add click event to calendar cells
+            calendarBody.addEventListener('click', handleDayClick);
+        }
+
+        // Handle month/year change
+        function handleMonthYearChange() {
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            renderCalendar(month, year);
+        }
+
+        // Go to previous month
+        function goToPrevMonth() {
+            let month = parseInt(monthSelect.value);
+            let year = parseInt(yearSelect.value);
+
+            month--;
+            if (month < 0) {
+                month = 11;
+                year--;
+            }
+
+            monthSelect.value = month;
+            yearSelect.value = year;
+            renderCalendar(month, year);
+        }
+
+        // Go to next month
+        function goToNextMonth() {
+            let month = parseInt(monthSelect.value);
+            let year = parseInt(yearSelect.value);
+
+            month++;
+            if (month > 11) {
+                month = 0;
+                year++;
+            }
+
+            monthSelect.value = month;
+            yearSelect.value = year;
+            renderCalendar(month, year);
+        }
+
+        // Handle day click
+        function handleDayClick(e) {
+            const cell = e.target.closest('.ant-picker-cell');
+            if (!cell) return;
+
+            // Clear any selected cells
+            document.querySelectorAll('.ant-picker-cell.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+
+            // Select current cell
+            cell.classList.add('selected');
+
+            // Get day number
+            const day = parseInt(cell.querySelector('.ant-picker-cell-inner').textContent);
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+
+            // Update selected date
+            selectedDate = { day, month, year };
+
+            // Update events panel
+            updateEventsPanel();
+        }
+
+        // Render calendar
+        function renderCalendar(month, year) {
+            const key = `${month}-${year}`;
+
+            // Check if we have pre-computed data for this month/year
+            if (calendarData[key]) {
+                renderCalendarFromData(calendarData[key]);
+            } else {
+                // For months we don't have pre-computed data, show a message
+                calendarBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">Данные для этого месяца недоступны в демо-версии.</td></tr>';
+            }
+
+            // Update events panel
+            updateEventsPanel();
+        }
+
+        // Render calendar from pre-computed data
+        function renderCalendarFromData(data) {
+            const { previousMonthDays, currentMonthDays, nextMonthDays, events } = data;
+
+            // Create all days array
+            const allDays = [
+                ...previousMonthDays,
+                ...currentMonthDays,
+                ...nextMonthDays
+            ];
+
+            // Split into weeks (chunks of 7)
+            const weeks = [];
+            for (let i = 0; i < allDays.length; i += 7) {
+                weeks.push(allDays.slice(i, i + 7));
+            }
+
+            // Generate HTML
+            let html = '';
+            weeks.forEach(week => {
+                html += '<tr>';
+                week.forEach(day => {
+                    const isToday = day.day === selectedDate.day &&
+                                   (day.month === 'current' &&
+                                    selectedDate.month === parseInt(monthSelect.value) &&
+                                    selectedDate.year === parseInt(yearSelect.value));
+
+                    const classes = [
+                        'ant-picker-cell',
+                        day.month !== 'current' ? day.month + '-month' : '',
+                        day.isWeekend ? 'weekend' : '',
+                        isToday ? 'today' : ''
+                    ].filter(Boolean).join(' ');
+
+                    // Check if day has events
+                    const dayEvents = day.month === 'current' && events[day.day] ? events[day.day] : [];
+                    const hasEvents = dayEvents.length > 0;
+
+                    html += `<td class="${classes} ${hasEvents ? 'has-events' : ''}">
+                        <div class="ant-picker-cell-inner">${day.day}</div>`;
+
+                    // Add event dots
+                    if (hasEvents) {
+                        html += '<div class="cell-events">';
+                        dayEvents.forEach(event => {
+                            html += `<div class="event-dot ${event.type}"></div>`;
+                        });
+                        html += '</div>';
+                    }
+
+                    html += '</td>';
+                });
+                html += '</tr>';
+            });
+
+            calendarBody.innerHTML = html;
+        }
+
+        // Update events panel
+        function updateEventsPanel() {
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            const day = selectedDate.day;
+
+            const key = `${month}-${year}`;
+
+            // Get month name in Russian
+            const monthNames = [
+                'Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня',
+                'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'
+            ];
+
+            // Check if we have events for this day
+            const events = calendarData[key]?.events[day] || [];
+
+            // Update events panel HTML
+            let html = `<h3>События на ${day} ${monthNames[month]}</h3>`;
+
+            if (events.length > 0) {
+                html += '<ul class="events">';
+                events.forEach(event => {
+                    html += `<li>
+                        <span class="ant-badge-status ant-badge-status-${event.type}">${event.time} ${event.title}</span>
+                        <span class="event-info">${event.location || ''}</span>
+                    </li>`;
+                });
+                html += '</ul>';
+            } else {
+                html += '<p>Нет событий на этот день</p>';
+            }
+
+            html += '<div class="add-event"><button class="add-event-btn">Добавить событие</button></div>';
+
+            eventsPanel.innerHTML = html;
+        }
+
+        // Initialize calendar on load
+        document.addEventListener('DOMContentLoaded', initCalendar);
+    </script>
+</body>
+</html>

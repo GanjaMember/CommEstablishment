@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/styles/base.css">
+        <link rel="stylesheet" href="/static/styles/nav-panel.css">
+        {% block head %}
+        {% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <nav class="header-nav-panel">
+                <a href="/company" class="logo"><img src="/static/images/logo.png" alt=""></a>
+                <a href="#" class="active">Дашборд</a>
+                <a href="/companies">Компании</a>
+                <a href="#">Конфигурация</a>
+            </nav>
+        </header>
+        <div class="main-content">
+            <nav class="side-nav-panel">
+                <a href="/company" class="active">Компания</a>
+                <a href="/departments">Отделы</a>
+                <a href="/calendar">Календарь</a>
+                <a href="/tasks">Задачи и мероприятия</a>
+                <a href="/projects">Проекты</a>
+                <hr class="nav-divider">
+                <a href="#" class="assistant">AI-ассистент</a>
+            </nav>
+            {% block content %}
+            {% endblock %}
+            </div>
+    </body>
+</html>
