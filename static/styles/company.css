@@ -132,8 +132,11 @@
     align-items: center;
 }
 
-.employee-bubble.avatar-bubble {
-    background-color: #ccc; /* Placeholder for avatar */
+.employee-bubble.user-avatar-photo {
+    background-image: url("../images/profile-image.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* Project Card Empty State */
