@@ -1,3 +1,5 @@
+/* Add styles for company.html */
+
 .main-content {
     display: flex;
     flex-grow: 1;
@@ -6,8 +8,8 @@
 .wrapper {
     flex-grow: 1;
     padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
@@ -78,6 +80,13 @@
     gap: 10px;
 }
 
+.project-card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
 .project-card-heading {
     font-weight: bold;
     color: var(--dark-color);
@@ -92,6 +101,7 @@
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .employee-bubble {
@@ -105,6 +115,14 @@
     color: var(--gray-color);
     font-size: 0.8em;
     font-weight: bold;
+}
+
+.new-employee-svg {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
 }
 
 .employee-bubble.avatar-bubble {
@@ -145,13 +163,33 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-.main-block-content > div > div {
+.company-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.project-card svg {
+    stroke: var(--blue-color);
+    fill: none; /* Ensure no fill for the background */
+}
+
+.main-block .main-block-content > div > div {
+    /* Revert general styles that were conflicting */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* padding: 0; */
+    /* border-bottom: none; */
+}
+
+/* Target the employee list items specifically */
+.main-block .main-block-content > div > .list-titles + div > div {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding: 8px 0;
     border-bottom: 1px solid var(--border-color);
 }
 
-.main-block-content > div > div:last-child {
+.main-block .main-block-content > div > .list-titles + div > div:last-child {
     border-bottom: none;
-} 
+}

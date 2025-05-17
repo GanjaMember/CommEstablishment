@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/styles/base.css">
-    <link rel="stylesheet" href="./static/styles/nav-panel.css">
+    <link rel="stylesheet" href="./static/styles/dashboard.css">
     <link rel="stylesheet" href="./static/styles/company.css">
-    <title>Dashboard</title>
+    <title>Company</title>
 </head>
 <body>
     <header>
@@ -19,9 +19,9 @@
     </header>
     <div class="main-content">
         <nav class="side-nav-panel">
-            <a href="company.html" class="active">Компания</a>
-            <a href="employees.html">Сотрудники</a>
-            <a href="calendar.html">Календарь</a>
+            <a href="#" class="active">Компания</a>
+            <a href="#">Сотрудники</a>
+            <a href="#">Календарь</a>
             <a href="#">Задачи</a>
             <a href="#">Мероприятия</a>
             <hr class="nav-divider">
@@ -36,7 +36,7 @@
                     <div class="action-bar">
                         <a class="action-link">Настройки компании</a>
                     </div>
-                    <div>
+                    <div class="company-actions">
                         <a class="blue-button">Пригласить сотрудников по почте</a>
                         <a class="action-link">Пригласительная ссылка</a>
                     </div>
@@ -51,7 +51,7 @@
                         <a class="action-link">Добавить новый</a>
                         <a class="action-link">Импортировать готовый</a>
                     </div>
-                    <div>
+                    <div class="project-card-list">
                         <div class="project-card">
                             <div class="project-card-heading">Comm Establishment</div>
                             <div class="project-card-index">CE</div>
@@ -62,11 +62,11 @@
                                 <div class="employee-bubble avatar-bubble"></div>
                                 <div class="employee-bubble avatar-bubble"></div>
                                 <div class="employee-bubble">+1</div>
-                                <svg>
+                                <div class="new-employee-svg"><svg>
                                     <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
                                     <path d="M9 12l6 0"></path>
                                     <path d="M12 9l0 6"></path>
-                                </svg>
+                                </svg></div>
                             </div>
                         </div>
                         <div class="project-card empty">
