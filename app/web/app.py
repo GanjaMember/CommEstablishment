@@ -38,7 +38,7 @@ def index():
 @app.route("/departments")
 def departments():
     departments = Department.query.all()
-    return render_template('departments.html', departments=departments)
+    return render_template('departments.html', departments=departments, active_page='departments')
 
 
 @app.route("/create_company", methods=["GET", "POST"])
@@ -61,6 +61,17 @@ def company(company_id: Optional[int]):
     if company_id:
         company = Company.query.filter(Company.id == company_id).first()
     return render_template('company.html',
-        company=company
+        company=company,
+        active_page='company'
     )
 
+
+@app.route("/calendar")
+def calendar():
+    return render_template('calendar.html', active_page='calendar')
+
+
+@app.route("/companies")
+def companies():
+    companies = Company.query.all()
+    return render_template('companies.html', companies=companies, active_page='companies')

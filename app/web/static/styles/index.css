@@ -30,6 +30,39 @@ body {
     gap: 24px;
 }
 
+.icon-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-color);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.icon-button:hover {
+    background-color: #f9f9fb;
+}
+
+/* CTA button */
+.cta-button {
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.cta-button:hover {
+    background-color: var(--dark-blue-color);
+}
+
 /* Hero section styles */
 .hero {
     padding: 60px 40px;
@@ -54,4 +87,36 @@ body {
     margin-right: auto;
     margin-bottom: 40px;
     line-height: 1.5;
+}
+
+.button-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.primary-button {
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.primary-button:hover {
+    background-color: var(--dark-blue-color);
+}
+
+.secondary-button {
+    background-color: var(--white-color);
+    color: var(--blue-color);
+    border: 1px solid var(--blue-color);
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 16px;
 }
