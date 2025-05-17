@@ -1,5 +1,6 @@
 /* Add styles for company.html */
 
+/* General Layout */
 .main-content {
     display: flex;
     flex-grow: 1;
@@ -13,6 +14,7 @@
     gap: 20px;
 }
 
+/* Main Block Styles */
 .main-block {
     background-color: var(--white-color);
     border-radius: 8px;
@@ -39,6 +41,7 @@
     flex-grow: 1;
 }
 
+/* Action Bar and Buttons */
 .action-bar {
     display: flex;
     gap: 15px;
@@ -70,6 +73,7 @@
     background-color: var(--dark-blue-color);
 }
 
+/* Project Card Styles */
 .project-card {
     border: 1px solid var(--border-color);
     border-radius: 4px;
@@ -80,6 +84,7 @@
     gap: 10px;
 }
 
+/* Project Card List */
 .project-card-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -97,6 +102,7 @@
     color: var(--gray-color);
 }
 
+/* Employee List and Bubbles */
 .employees-list {
     display: flex;
     gap: 5px;
@@ -117,6 +123,7 @@
     font-weight: bold;
 }
 
+/* New Employee SVG */
 .new-employee-svg {
     display: flex;
     width: 30px;
@@ -129,6 +136,7 @@
     background-color: #ccc; /* Placeholder for avatar */
 }
 
+/* Project Card Empty State */
 .project-card.empty {
     display: flex;
     align-items: center;
@@ -143,17 +151,20 @@
     stroke: currentColor;
 }
 
+/* Department Title */
 .department-title {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
+/* Separator Line */
 .gray-vertical-line {
     width: 1px;
     background-color: var(--border-color);
     margin: 10px 0;
 }
 
+/* List/Table Structures */
 .list-titles {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -163,17 +174,20 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+/* Company Actions */
 .company-actions {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
+/* Project Card SVG */
 .project-card svg {
     stroke: var(--blue-color);
     fill: none; /* Ensure no fill for the background */
 }
 
+/* Main Block Content Overrides */
 .main-block .main-block-content > div > div {
     /* Revert general styles that were conflicting */
     /* display: flex; */
