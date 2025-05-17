@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/styles/base.css">
     <link rel="stylesheet" href="./static/styles/nav-panel.css">
-    <link rel="stylesheet" href="./static/styles/employees.css">
     <link rel="stylesheet" href="./static/styles/company.css">
+    <link rel="stylesheet" href="./static/styles/employees.css">
     <title>Dashboard</title>
 </head>
 <body>
@@ -21,7 +21,7 @@
     <div class="main-content">
         <nav class="side-nav-panel">
             <a href="company.html">Компания</a>
-            <a href="employees.html" class="active">Отделы</a>
+            <a href="departments.html" class="active">Отделы</a>
             <a href="calendar.html">Календарь</a>
             <a href="#">Задачи и мероприятия</a>
             <a href="#">Проекты</a>
@@ -29,148 +29,58 @@
             <a href="#" class="assistant">AI-ассистент</a>
         </nav>
         <div class="wrapper">
-            <div class="main-block" id="departments">
+            <div class="main-block">
                 <div class="main-block-heading">
-                    <div class="main-block-title" style="margin-left: 1.5vw;">Отделы</div>
+                    <div class="main-block-title" style="margin-left: 1.5vw;">Сотрудники</div>
                 </div>
                 <div class="main-block-content">
-                    <div class="action-bar" style="display: inline-block; margin-left: 2vw; margin-top: 1.5vh; margin-bottom: 0;">
-                        <a class="action-link">Добавить отдел</a>
-                    </div>
-                    <div class="departments">
-                        <div class="department">
-                            <div class="department-title">Главный отдел</div>
-                            <hr class="nav-divider">
-                            <div class="employees-list">
-                                <div class="employee-bubble">GL</div>
-                                <div class="employee-bubble">GL</div>
-                            </div>
-                            <div class="action-bar">
-                                <a class="action-link">Добавить сотрудника</a>
-                                <a class="action-link">Редактировать отдел</a>
-                                <a class="action-link">Удалить отдел</a>
-                            </div>
-                        </div>
-                        <div class="department">
-                            <div class="department-title">Подотдел</div>
-                            <hr class="nav-divider">
-                            <div class="employees-list">
-                                <div class="employee-bubble">GL</div>
-                                <div class="employee-bubble">GL</div>
-                            </div>
-                            <div class="action-bar">
-                                <a class="action-link">Добавить сотрудника</a>
-                                <a class="action-link">Редактировать отдел</a>
-                                <a class="action-link">Удалить отдел</a>
-                            </div>
-                        </div>
-                        <div class="department">
-                            <div class="department-title">Подотдел</div>
-                            <hr class="nav-divider">
-                            <div class="employees-list">
-                                <div class="employee-bubble">GL</div>
-                                <div class="employee-bubble">GL</div>
-                            </div>
-                            <div class="action-bar">
-                                <a class="action-link">Добавить сотрудника</a>
-                                <a class="action-link">Редактировать отдел</a>
-                                <a class="action-link">Удалить отдел</a>
-                            </div>
-                        </div>
-                        <div class="department">
-                            <div class="department-title">Подотдел</div>
-                            <hr class="nav-divider">
-                            <div class="employees-list">
-                                <div class="employee-bubble">GL</div>
-                                <div class="employee-bubble">GL</div>
-                            </div>
-                            <div class="action-bar">
-                                <a class="action-link">Добавить сотрудника</a>
-                                <a class="action-link">Редактировать отдел</a>
-                                <a class="action-link">Удалить отдел</a>
-                            </div>
-                        </div>
-                        <div class="department">
-                            <div class="department-title">Подотдел</div>
-                            <hr class="nav-divider">
-                            <div class="employees-list">
-                                <div class="employee-bubble">GL</div>
-                                <div class="employee-bubble">GL</div>
-                            </div>
-                            <div class="action-bar">
-                                <a class="action-link">Добавить сотрудника</a>
-                                <a class="action-link">Редактировать отдел</a>
-                                <a class="action-link">Удалить отдел</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="main-block" id="employees">
-                <div class="main-block-heading">
-                    <div class="main-block-title">Сотрудники</div>
-                </div>
-                <div class="main-block-content">
-                    <div class="action-bar">
+                    <div class="action-bar" id="header-action-bar">
                         <a class="action-link">Добавить сотрудника</a>
-                        <a class="action-link">Удалить сотрудника</a>
+                    </div>
+                    <div class="action-bar" id="header-action-bar">
                         <a class="action-link">Редактировать сотрудника</a>
                     </div>
-                    <div class="employee-list-container">
+                    <div class="action-bar" id="header-action-bar">
+                        <a class="action-link">Удалить сотрудника</a>
+                    </div>
+                    <div class="employees">
                         <div class="list-titles">
                             <div>Имя</div>
                             <div>Почта</div>
                             <div>Роль</div>
                             <div>Отдел</div>
                         </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
-                        </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
-                        </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
-                        </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
-                        </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
-                        </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
-                        </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
-                        </div>
-                        <div class="employee-row">
-                            <div>Lorem Ipsum</div>
-                            <div>empty@mail.com</div>
-                            <div>-</div>
-                            <div>-</div>
+                        <div>
+                            <div>
+                                <div>Lorem Ipsum</div>
+                                <div>empty@mail.com</div>
+                                <div>-</div>
+                                <div>-</div>
+                            </div>
+                            <div>
+                                <div>Lorem Ipsum</div>
+                                <div>empty@mail.com</div>
+                                <div>-</div>
+                                <div>-</div>
+                            </div>
+                            <div>
+                                <div>Lorem Ipsum</div>
+                                <div>empty@mail.com</div>
+                                <div>-</div>
+                                <div>-</div>
+                            </div>
+                            <div>
+                                <div>Lorem Ipsum</div>
+                                <div>empty@mail.com</div>
+                                <div>-</div>
+                                <div>-</div>
+                            </div>
+                            <div>
+                                <div>Lorem Ipsum</div>
+                                <div>empty@mail.com</div>
+                                <div>-</div>
+                                <div>-</div>
+                            </div>
                         </div>
                     </div>
                 </div>

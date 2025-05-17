@@ -192,7 +192,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding: 8px 0;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .main-block .main-block-content > div > .list-titles + div > div:last-child {
