@@ -11,6 +11,9 @@
     --side-nav-bg-color: #F8F9FA;
     --border-color: #DEE2E6;
     --shadow-color: rgba(0, 0, 0, 0.05);
+    --message-bg-received: #F1F3F5;
+    --message-bg-sent: var(--blue-color);
+    --message-time-color: #6C757D;
 }
 
 body {
