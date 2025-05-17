@@ -4,7 +4,6 @@
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
 }
 
 /* Main Block Styles */
@@ -53,6 +52,7 @@
     cursor: pointer;
 }
 
+/* Button Styles */
 .blue-button {
     display: inline-block;
     background-color: var(--blue-color);
@@ -68,42 +68,7 @@
     background-color: var(--dark-blue-color);
 }
 
-/* Project Card Styles */
-.project-card {
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 15px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.project-card-heading {
-    font-weight: bold;
-    color: var(--dark-color);
-}
-
-.project-card-index {
-    font-size: 0.8em;
-    color: var(--gray-color);
-}
-
-.project-card.empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray-color);
-    height: 100px; /* Adjust as needed */
-}
-
-.project-card.empty svg {
-    width: 30px;
-    height: 30px;
-    stroke: currentColor;
-}
-
-/* Employee List and Bubbles */
+/* Employee Bubble Styles */
 .employees-list {
     display: flex;
     gap: 5px;
@@ -140,7 +105,7 @@
     margin: 10px 0;
 }
 
-/* List/Table Structures */
+/* Employee List Table-like Structure */
 .list-titles {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -150,6 +115,7 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+/* Styles for rows within main-block-content */
 .main-block-content > div > div {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -161,6 +127,7 @@
     border-bottom: none;
 }
 
+/* Specific Employee Row Styles */
 .employee-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -172,5 +139,12 @@
     border-bottom: none;
 }
 
+/* Hidden Elements */
+#employees {
+    display: none; /* Element is hidden by default */
+}
 
-
+/* Specific ID Styles */
+#department-list {
+    height: 100%;
+}
