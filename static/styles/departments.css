@@ -1,0 +1,88 @@
+/* Employee Bubble Styles */
+.employees-list {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* Employee List Table-like Structure */
+.list-titles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Specific Employee Row Styles */
+.employee-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.employee-list-container > .employee-row:last-child {
+  border-bottom: none;
+}
+
+/* Hidden Elements */
+#employees {
+  display: none; /* Element is hidden by default */
+}
+
+/* Department employee list style */
+.department .employees-list {
+  display: flex;
+  flex-direction: column;
+  /* Removed duplicate rule */
+}
+
+.main-block {
+  height: 100%;
+}
+
+.action-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.departments {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+.department {
+  margin-top: 2.5vh;
+  margin-inline: 1vw;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding-inline: 1.5vw;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+}
+
+.department .action-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 2.5vh;
+}
+
+.department .action-bar a {
+  font-size: 0.55em;
+}
+
+.department .nav-divider {
+  margin-top: 1.5vh;
+  margin-bottom: 1.5vh;
+}
+
+#header-action-bar {
+  display: inline-block;
+  margin-left: 2vw;
+  margin-top: 1.5vh;
+  margin-bottom: 0;
+}
