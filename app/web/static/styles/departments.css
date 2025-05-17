@@ -50,13 +50,11 @@
 
 .departments {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, 250px);
+  align-items: stretch;
 }
 
 .department {
-  margin-top: 2.5vh;
-  margin-inline: 1vw;
   border: 1px solid var(--border-color);
   border-radius: 20px;
   padding-inline: 1.5vw;

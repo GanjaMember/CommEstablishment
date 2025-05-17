@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/static/styles/company.css">
 {% endblock %}
 
-{% block title %}Companies{% endblock %}
+{% block title %}Projects{% endblock %}
 
 {% block content %}
 <div class="main-content">
@@ -15,17 +15,17 @@
             </div>
             <div class="main-block-content">
                 <div class="project-card-list">
-                    {% for company in companies %}
+                    {% for project in projects %}
                         <div class="project-card">
                             <div class="project-card-header">
-                                <div class="project-card-heading">{{ company.name }}</div>
+                                <div class="project-card-heading">{{ project.name }}</div>
                                 <div class="project-card-actions">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
                                 </div>
                             </div>
-                            <div class="project-card-index">{{ company.index }}</div>
+                            <div class="project-card-index">{{ project.index }}</div>
                             <div class="employees-list">
-                                {% for employee in company.employees %}
+                                {% for employee in department.employees %}
                                     <div class="employee-bubble">
                                         {{ employee.index }}
                                     </div>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <a href="/create_company" class="project-card empty">
+                    <a href="/create_department" class="project-card empty">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-none" type="ui"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l6 0"></path><path d="M12 9l0 6"></path></svg>
                     </a>
                 </div>
