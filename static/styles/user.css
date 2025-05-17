@@ -1,0 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: var(--gray-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 64px;
+    font-weight: bold;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.profile-title {
+    font-size: 18px;
+    margin-top: -10px;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--gray-color);
+}
+
+.profile-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.profile-btn {
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--blue-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue-color);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--blue-color);
+    border: 2px solid var(--blue-color);
+}
+
+.btn-outline:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.profile-content {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 30px;
+}
+
+.profile-sidebar {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.profile-section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.info-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(52, 152, 219, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue-color);
+}
+
+.info-text {
+    font-size: 15px;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--blue-color);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 14px;
+}
+
+.profile-main {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.main-section {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
+
+.bio-text {
+    margin-bottom: 15px;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    font-weight: 600;
+    color: #777;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    color: #3498db;
+    border-bottom-color: #3498db;
+}
+
+.tab:hover {
+    color: #3498db;
+}
+
+.project-card {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-card:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.project-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    background-color: var(--gray-color);
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-details h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.project-details p {
+    color: #777;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.project-tag {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--blue-color);
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 13px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .profile-content {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .profile-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .profile-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
