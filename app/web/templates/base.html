@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/static/styles/base.css">
         <link rel="stylesheet" href="/static/styles/nav-panel.css">
+        <link rel="stylesheet" href="/static/styles/chats.css">
         {% block head %}
         {% endblock %}
         <title>{% block title %}{% endblock %}</title>
@@ -67,11 +68,27 @@
                         <path fill="none" d="M10,16.067c-0.186,0-0.337,0.151-0.337,0.337V19.1c0,0.186,0.151,0.337,0.337,0.337s0.337-0.151,0.337-0.337v-2.696C10.337,16.218,10.186,16.067,10,16.067z"></path>
                     </svg>
                     <p>AI-ассистент</p></a>
+            <hr class="nav-divider">
+            <div class="section-header">Чаты</div>
+            <a href="#" class="create-chat-button">Создать группу</a>
+            <div class="recent-chats">
+                <a href="chat.html" class="chat-item active">
+                    <div class="chat-icon">GL</div>
+                    <span>Общий чат</span>
+                </a>
+                <a href="#" class="chat-item">
+                    <div class="chat-icon">TM</div>
+                    <span>Команда проекта</span>
+                </a>
+                <a href="#" class="chat-item">
+                    <div class="chat-icon">MK</div>
+                    <span>Маркетинг</span>
+                </a>
+            </div>
             </nav>
             {% block content %}
             {% endblock %}
             </div>
-
     {% block scripts %}
     {% endblock %}
     </body>

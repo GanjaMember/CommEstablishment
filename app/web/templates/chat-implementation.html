@@ -1,109 +1,37 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/styles/base.css">
-    <link rel="stylesheet" href="./static/styles/nav-panel.css">
-    <link rel="stylesheet" href="./static/styles/chats.css">
-    <title>Чаты</title>
-</head>
-<body>
-    <header>
-        <nav class="header-nav-panel">
-            <a href="index.html" class="logo"><img src="static/images/logo.png" alt=""></a>
-            <a href="#" class="active">Дашборд</a>
-            <a href="#">Компании</a>
-            <a href="#">Конфигурация</a>
-        </nav>
-    </header>
-    <div class="main-content">
-        <nav class="side-nav-panel">
-            <a href="company.html">Компания</a>
-            <a href="employees.html">Отделы</a>
-            <a href="calendar.html">Календарь</a>
-            <a href="#">Задачи и мероприятия</a>
-            <a href="#">Проекты</a>
-            <hr class="nav-divider">
-            <a href="#" class="assistant">AI-ассистент</a>
-            <hr class="nav-divider">
-            <div class="section-header">Чаты</div>
-            <a href="#" class="create-chat-button">Создать группу</a>
-
-            <div class="recent-chats">
-                <a href="chat.html" class="chat-item active">
-                    <div class="chat-icon">GL</div>
-                    <span>Общий чат</span>
-                </a>
-                <a href="#" class="chat-item">
-                    <div class="chat-icon">TM</div>
-                    <span>Команда проекта</span>
-                </a>
-                <a href="#" class="chat-item">
-                    <div class="chat-icon">MK</div>
-                    <span>Маркетинг</span>
-                </a>
+{% block content %}
+    <!-- Full-width Chat Container -->
+    <main style="flex-grow: 1; margin-left: 0; padding: 0;">
+        <div class="chat-full-container">
+            <div class="chat-info">
+                <div class="chat-title">{{ chat.title }}</div>
+                <div class="chat-participants">{{ chat.participant_count }} участника</div>
             </div>
-        </nav>
 
-        <!-- Full-width Chat Container -->
-        <main style="flex-grow: 1; margin-left: 0; padding: 0;">
-            <div class="chat-full-container">
-                <div class="chat-info">
-                    <div class="chat-title">Общий чат</div>
-                    <div class="chat-participants">3 участника</div>
-                </div>
-
-                <div class="chat-messages">
-                    <!-- Received Message -->
-                    <div class="message received">
-                        <div class="message-avatar">TM</div>
-                        <div class="message-content">
-                            <div class="message-header">
-                                <span class="message-author">Техническая команда</span>
-                                <span class="message-time">10:00</span>
-                            </div>
-                            <div class="message-text">Обновили серверную инфраструктуру. Просим проверить работу новых модулей в тестовой среде.</div>
+            <div class="chat-messages">
+                {% for message in messages %}
+                <div class="message {{ message.type }}">
+                    <div class="message-avatar">{{ message.author_initials }}</div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">{{ message.author }}</span>
+                            <span class="message-time">{{ message.time }}</span>
                         </div>
-                    </div>
-
-                    <!-- Sent Message -->
-                    <div class="message sent">
-                        <div class="message-avatar">ME</div>
-                        <div class="message-content">
-                            <div class="message-header">
-                                <span class="message-author">Вы</span>
-                                <span class="message-time">10:05</span>
-                            </div>
-                            <div class="message-text">Принято. Проверю в течение часа и дам обратную связь. Спасибо за оперативное обновление!</div>
-                        </div>
-                    </div>
-
-                    <!-- Received Message -->
-                    <div class="message received">
-                        <div class="message-avatar">HR</div>
-                        <div class="message-content">
-                            <div class="message-header">
-                                <span class="message-author">HR Отдел</span>
-                                <span class="message-time">10:15</span>
-                            </div>
-                            <div class="message-text">Напоминаем о необходимости заполнения ежегодного опроса сотрудников до конца недели.</div>
-                        </div>
+                        <div class="message-text">{{ message.text }}</div>
                     </div>
                 </div>
+                {% endfor %}
+            </div>
 
-                <div class="message-input-full">
-                    <div class="message-input-wrapper">
-                        <textarea class="message-input" placeholder="Напишите сообщение..."></textarea>
-                        <button class="send-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M2 21L23 12L2 3v7l15 2l-15 2v7Z"/>
-                            </svg>
-                        </button>
-                    </div>
+            <div class="message-input-full">
+                <div class="message-input-wrapper">
+                    <textarea class="message-input" placeholder="Напишите сообщение..."></textarea>
+                    <button class="send-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M2 21L23 12L2 3v7l15 2l-15 2v7Z"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
-        </main>
-    </div>
-</body>
-</html>
+        </div>
+    </main>
+{% endblock %}
