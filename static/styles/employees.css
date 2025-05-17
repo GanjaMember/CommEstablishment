@@ -39,7 +39,7 @@
     /* Removed duplicate rule */
 }
 
-#departments {
+.main-block {
     height: 100%;
 }
 
@@ -48,3 +48,34 @@
     flex-direction: column;
 }
 
+.departments {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+}
+
+.department {
+    margin-top: 2.5vh;
+    margin-inline: 1vw;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding-inline: 1.5vw;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+}
+
+.department .action-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2.5vh;
+}
+
+.department .action-bar a {
+    font-size: 0.4em;
+}
+
+.department .nav-divider {
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+}
