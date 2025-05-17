@@ -123,10 +123,14 @@
     height: 15px;
     border-radius: 50%;
     background-color: var(--body-bg-color);
-    color: var(--gray-color);
+    color: var(--white-color);
     font-size: 0.4em;
     font-weight: bold;
     margin-top: 1.5vh;
+}
+
+.employee-counter {
+    color: var(--gray-color);
 }
 
 .employee-bubble.user-avatar-photo {
@@ -192,7 +196,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding: 8px 0;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .main-block .main-block-content > div > .list-titles + div > div:last-child {
@@ -211,5 +214,7 @@
 }
 
 .department .employee-bubble {
+    width: 30px;
+    height: 30px;
     font-size: 0.65em;
 }
