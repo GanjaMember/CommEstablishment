@@ -103,7 +103,7 @@
 }
 
 /* Employee List and Bubbles */
-.employees-list {
+.project-card-list .employees-list {
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
@@ -121,6 +121,7 @@
     color: var(--gray-color);
     font-size: 0.8em;
     font-weight: bold;
+    margin-top: 1.5vh;
 }
 
 /* New Employee SVG */
@@ -190,15 +191,6 @@
     fill: none; /* Ensure no fill for the background */
 }
 
-/* Main Block Content Overrides */
-.main-block .main-block-content > div > div {
-    /* Revert general styles that were conflicting */
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* padding: 0; */
-    /* border-bottom: none; */
-}
-
 /* Target the employee list items specifically */
 .main-block .main-block-content > div > .list-titles + div > div {
     display: grid;
@@ -209,4 +201,15 @@
 
 .main-block .main-block-content > div > .list-titles + div > div:last-child {
     border-bottom: none;
+}
+
+.department .employees-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5vh;
+}
+
+.department .employees-list {
+    display: flex;
+    flex-direction: column;
 }
