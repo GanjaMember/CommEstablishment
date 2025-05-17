@@ -4,6 +4,32 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
+
+/* KEYFRAMES */
+@keyframes fade-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+}
+
 /* Header styles */
 .header {
     display: flex;
@@ -67,6 +93,7 @@ body {
 .hero {
     padding: 60px 40px;
     text-align: center;
+    animation: fade-down 1s;
 }
 
 .hero h1 {
@@ -77,6 +104,7 @@ body {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 1px 1px 2px var(--gray-color);
 }
 
 .hero p {
@@ -104,10 +132,12 @@ body {
     font-weight: 500;
     cursor: pointer;
     font-size: 16px;
+    transition: all 0.2s;
 }
 
 .primary-button:hover {
     background-color: var(--dark-blue-color);
+    transform: scale(1.1);
 }
 
 .secondary-button {

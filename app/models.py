@@ -65,12 +65,16 @@ class Company(TimestampMixin, db.Model):
     employees = db.relationship("Employee", back_populates="company")
     knowledge_base = db.relationship("KnowledgeBase", back_populates="company", uselist=False)
 
+    @property
+    def index(self) -> str:
+        return "".join(i[0] for i in self.name.title().split())
 
 class Department(TimestampMixin, db.Model):
     __tablename__ = "department"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text, nullable=True)
 
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"), nullable=False)
     company = db.relationship("Company", back_populates="departments")
@@ -81,7 +85,10 @@ class Department(TimestampMixin, db.Model):
     projects = db.relationship("Project", back_populates="responsible_dept")
 
     __table_args__ = (db.UniqueConstraint("company_id", "name", name="uq_department_name"),)
-
+    
+    @property
+    def index(self) -> str:
+        return "".join(i[0] for i in self.name.title().split())
 
 class Role(TimestampMixin, db.Model):
     __tablename__ = "role"
@@ -105,6 +112,7 @@ class Employee(TimestampMixin, db.Model):
     hire_date = db.Column(db.Date, nullable=False)
     birth_date = db.Column(db.Date, nullable=True)
     contacts = db.Column(db.Text, nullable=True)
+    email = db.Column(db.String(100), unique=True, index=True, nullable=False)
 
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"), nullable=False)
     role_id = db.Column(db.Integer, db.ForeignKey("role.id"), nullable=True)
@@ -136,6 +144,10 @@ class Employee(TimestampMixin, db.Model):
         if self.patronymic:
             parts.append(self.patronymic)
         return " ".join(parts)
+    
+    @property
+    def index(self) -> str:
+        return "".join(i[0] for i in self.full_name.title().split())
 
 
 class Project(TimestampMixin, db.Model):
@@ -157,6 +169,9 @@ class Project(TimestampMixin, db.Model):
     )
     tasks = db.relationship("Task", back_populates="project")
 
+    @property
+    def index(self) -> str:
+        return "".join(i[0] for i in self.full_name.title().split())
 
 class Task(TimestampMixin, db.Model):
     __tablename__ = "task"

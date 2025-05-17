@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/styles/company.css">
+{% endblock %}
+
+{% block title %}Создание проекта{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label }}
+            <br><br>
+            {{ form.name(class="input-field") }}
+            {% for error in form.name.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.description.label }}
+            <br><br>
+            {{ form.description(class="input-field") }}
+            {% for error in form.description.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.responsible_department_id.label }}
+            <br><br>
+            {{ form.responsible_department_id(class="input-field") }}
+            {% for error in form.responsible_department_id.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.employees.label }}
+            <br><br>
+            {{ form.employees(class="input-field", multiple=True, size=8) }}
+            {% for error in form.employees.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="form-group">
+            {{ form.submit(class="primary-button") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

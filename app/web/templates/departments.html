@@ -1,100 +1,42 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="/static/styles/departments.css">
 <link rel="stylesheet" href="/static/styles/company.css">
 {% endblock %}
 
 {% block title %}Departments{% endblock %}
 
 {% block content %}
-<div class="wrapper">
-    <div class="main-block" id="departments">
-        <div class="main-block-heading">
-            <div class="main-block-title" style="margin-left: 1.5vw;">Отделы</div>
-        </div>
-        <div class="main-block-content">
-            <div class="action-bar" id="header-action-bar">
-                <a class="action-link">Добавить отдел</a>
+<div class="main-content">
+    <div class="wrapper">
+        <div class="main-block">
+            <div class="main-block-heading">
+                <div class="main-block-title">Отделы</div>
             </div>
-            <div class="departments">
-                <div class="department">
-                    <div class="department-title">Главный отдел</div>
-                    <hr class="nav-divider">
-                    <div class="employees-list">
-                        <div class="employee-bubble">GL</div>
-                        <div class="employee-bubble">GL</div>
-                    </div>
-                    <div class="action-bar">
-                        <a class="action-link" href="employees.html">Показать сотрудников</a>
-                        <a class="action-link">Редактировать отдел</a>
-                        <a class="action-link">Удалить отдел</a>
-                    </div>
-                </div>
-                <div class="department">
-                    <div class="department-title">Подотдел</div>
-                    <hr class="nav-divider">
-                    <div class="employees-list">
-                        <div class="employee-bubble">GL</div>
-                        <div class="employee-bubble">GL</div>
-                    </div>
-                    <div class="action-bar">
-                        <a class="action-link" href="employees.html">Показать сотрудников</a>
-                        <a class="action-link">Редактировать отдел</a>
-                        <a class="action-link">Удалить отдел</a>
-                    </div>
-                </div>
-                <div class="department">
-                    <div class="department-title">Подотдел</div>
-                    <hr class="nav-divider">
-                    <div class="employees-list">
-                        <div class="employee-bubble">GL</div>
-                        <div class="employee-bubble">GL</div>
-                    </div>
-                    <div class="action-bar">
-                        <a class="action-link" href="employees.html">Показать сотрудников</a>
-                        <a class="action-link">Редактировать отдел</a>
-                        <a class="action-link">Удалить отдел</a>
-                    </div>
-                </div>
-                <div class="department">
-                    <div class="department-title">Подотдел</div>
-                    <hr class="nav-divider">
-                    <div class="employees-list">
-                        <div class="employee-bubble">GL</div>
-                        <div class="employee-bubble">GL</div>
-                    </div>
-                    <div class="action-bar">
-                        <a class="action-link" href="employees.html">Показать сотрудников</a>
-                        <a class="action-link">Редактировать отдел</a>
-                        <a class="action-link">Удалить отдел</a>
-                    </div>
-                </div>
-                <div class="department">
-                    <div class="department-title">Подотдел</div>
-                    <hr class="nav-divider">
-                    <div class="employees-list">
-                        <div class="employee-bubble">GL</div>
-                        <div class="employee-bubble">GL</div>
-                    </div>
-                    <div class="action-bar">
-                        <a class="action-link" href="employees.html">Показать сотрудников</a>
-                        <a class="action-link">Редактировать отдел</a>
-                        <a class="action-link">Удалить отдел</a>
-                    </div>
-                </div>
-                <div class="department">
-                    <div class="department-title">Подотдел</div>
-                    <hr class="nav-divider">
-                    <div class="employees-list">
-                        <div class="employee-bubble">GL</div>
-                        <div class="employee-bubble">GL</div>
-                    </div>
-                    <div class="action-bar">
-                        <a class="action-link" href="employees.html">Показать сотрудников</a>
-                        <a class="action-link">Редактировать отдел</a>
-                        <a class="action-link">Удалить отдел</a>
-                    </div>
+            <div class="main-block-content">
+                <div class="project-card-list">
+                    {% for department in departments %}
+                        <div class="project-card">
+                            <div class="project-card-header">
+                                <div class="project-card-heading">{{ department.name }}</div>
+                                <div class="project-card-actions">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                                </div>
+                            </div>
+                            <div class="project-card-index">{{ department.index }}</div>
+                            <div class="employees-list">
+                                {% for employee in department.employees %}
+                                    <div class="employee-bubble">
+                                        {{ employee.index }}
+                                    </div>
+                                {% endfor %}
+                                <div class="employee-bubble">...</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <a href="/create_department" class="project-card empty">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-none" type="ui"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l6 0"></path><path d="M12 9l0 6"></path></svg>
+                    </a>
                 </div>
             </div>
         </div>
