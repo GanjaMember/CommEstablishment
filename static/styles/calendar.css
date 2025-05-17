@@ -1,0 +1,442 @@
+/* Calendar page specific styles */
+main {
+    flex-grow: 1;
+    padding: 2vh 2vw;
+    overflow-y: auto;
+}
+
+h2 {
+    font-size: 3vh;
+    color: var(--dark-color);
+    margin-bottom: 2vh;
+}
+
+.calendar-container {
+    display: flex;
+    gap: 2vw;
+    height: calc(90vh - 12vh); /* Adjust height to fit the viewport */
+}
+
+/* Calendar component */
+.ant-calendar {
+    background-color: var(--white-color);
+    border-radius: 8px;
+    padding: 2vh 2vw;
+    box-shadow: 0px 5px 10px var(--shadow-color);
+    flex-grow: 1;
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Calendar header */
+.ant-picker-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5vh;
+    margin-bottom: 1.5vh;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-header-left,
+.calendar-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}
+
+.ant-select {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.8vh;
+    color: var(--dark-color);
+    padding: 0.8vh 1vw;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--white-color);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.ant-select:hover {
+    border-color: var(--blue-color);
+}
+
+.ant-select:focus {
+    border-color: var(--blue-color);
+    box-shadow: 0 0 0 2px rgba(0, 140, 240, 0.2);
+}
+
+.calendar-btn {
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.8vh 1vw;
+    font-size: 1.8vh;
+    color: var(--dark-color);
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+}
+
+.calendar-btn:hover {
+    border-color: var(--blue-color);
+    color: var(--blue-color);
+}
+
+.calendar-view-btn {
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    padding: 0.8vh 1vw;
+    font-size: 1.6vh;
+    color: var(--dark-color);
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.calendar-view-btn:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.calendar-view-btn:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.calendar-view-btn.active {
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    border-color: var(--blue-color);
+}
+
+/* Calendar body */
+.ant-picker-calendar-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.ant-picker-content {
+    width: 100%;
+    border-collapse: collapse;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.ant-picker-content thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--white-color);
+    z-index: 5;
+}
+
+.ant-picker-content th,
+.ant-picker-content td {
+    text-align: center;
+    vertical-align: top;
+    font-size: 1.6vh;
+}
+
+.ant-picker-content th {
+    padding: 1vh 0;
+    font-weight: bold;
+    color: var(--gray-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ant-picker-cell {
+    position: relative;
+    padding: 0.5vh;
+    height: 11vh;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.ant-picker-cell-inner {
+    position: relative;
+    width: 3vh;
+    height: 3vh;
+    line-height: 3vh;
+    border-radius: 4px;
+    margin-bottom: 0.5vh;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.ant-picker-cell:hover {
+    background-color: var(--side-nav-bg-color);
+}
+
+.ant-picker-cell:hover .ant-picker-cell-inner {
+    color: var(--blue-color);
+}
+
+.ant-picker-cell.weekend {
+    background-color: rgba(244, 245, 247, 0.5);
+}
+
+.ant-picker-cell.previous-month,
+.ant-picker-cell.next-month {
+    color: var(--border-color);
+    background-color: rgba(244, 245, 247, 0.3);
+}
+
+.ant-picker-cell.selected {
+    background-color: rgba(0, 140, 240, 0.1);
+}
+
+.ant-picker-cell.selected .ant-picker-cell-inner {
+    background-color: var(--blue-color);
+    color: var(--white-color);
+}
+
+.ant-picker-cell.today .ant-picker-cell-inner {
+    border: 1px solid var(--blue-color);
+    color: var(--blue-color);
+    font-weight: bold;
+}
+
+/* Cell events styling */
+.cell-events {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3vh;
+    margin-top: 0.3vh;
+    justify-content: center;
+}
+
+.event-dot {
+    width: 0.8vh;
+    height: 0.8vh;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.has-events:hover .event-dot {
+    transform: scale(1.2);
+}
+
+.event-dot.success {
+    background-color: #52c41a;
+}
+
+.event-dot.warning {
+    background-color: #faad14;
+}
+
+.event-dot.danger {
+    background-color: #f5222d;
+}
+
+.event-dot.info {
+    background-color: var(--blue-color);
+}
+
+/* Events panel */
+.events-panel {
+    background-color: var(--white-color);
+    border-radius: 8px;
+    padding: 2vh 2vw;
+    box-shadow: 0px 5px 10px var(--shadow-color);
+    flex-basis: 25%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.events-panel h3 {
+    font-size: 2.2vh;
+    color: var(--dark-color);
+    margin-bottom: 2vh;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Events list */
+.events {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    flex-grow: 1;
+    max-height: calc(100% - 12vh);
+}
+
+.events li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5vh;
+    padding: 1vh;
+    border-radius: 4px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.events li:hover {
+    background-color: var(--side-nav-bg-color);
+    transform: translateX(4px);
+}
+
+.ant-badge-status {
+    display: flex;
+    align-items: center;
+    font-size: 1.6vh;
+    overflow: hidden;
+    flex-grow: 0;
+    flex-shrink: 0;
+    /* Set a fixed width for the event title to ensure consistency */
+    width: 70%;
+}
+
+.event-info {
+    margin-left: auto;
+    color: var(--gray-color);
+    font-size: 1.4vh;
+    text-align: right;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 25%;
+}
+
+.ant-badge-status::before {
+    content: '';
+    display: inline-block;
+    width: 0.8vh;
+    height: 0.8vh;
+    border-radius: 50%;
+    margin-right: 0.6vw;
+    flex-shrink: 0;
+}
+
+.ant-badge-status-success::before {
+    background-color: #52c41a;
+}
+
+.ant-badge-status-warning::before {
+    background-color: #faad14;
+}
+
+.ant-badge-status-danger::before {
+    background-color: #f5222d;
+}
+
+.ant-badge-status-info::before {
+    background-color: var(--blue-color);
+}
+
+.add-event {
+    margin-top: auto;
+    padding-top: 2vh;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.add-event-btn {
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 4px;
+    padding: 1vh 1.5vw;
+    font-size: 1.6vh;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.add-event-btn:hover {
+    background-color: var(--dark-blue-color);
+    transform: translateY(-2px);
+}
+
+.add-event-btn:active {
+    transform: translateY(0);
+}
+
+/* Event form (for future implementation) */
+.event-form {
+    display: none;
+    margin-top: 2vh;
+}
+
+.event-form.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1.5vh;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.4vh;
+    margin-bottom: 0.5vh;
+    color: var(--gray-color);
+}
+
+.form-control {
+    width: 100%;
+    padding: 1vh;
+    font-size: 1.6vh;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--white-color);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--blue-color);
+    box-shadow: 0 0 0 2px rgba(0, 140, 240, 0.2);
+}
+
+/* Week and Day views (for future implementation) */
+.week-view, .day-view {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1024px) {
+    .calendar-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .events-panel {
+        flex-basis: auto;
+        margin-top: 2vh;
+        height: 40vh;
+    }
+
+    .ant-picker-cell {
+        height: 8vh;
+    }
+
+    .ant-picker-cell-inner {
+        width: 2.5vh;
+        height: 2.5vh;
+        line-height: 2.5vh;
+        font-size: 1.4vh;
+    }
+
+    .calendar-header-left,
+    .calendar-header-right {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .ant-picker-calendar-header {
+        flex-direction: column;
+        gap: 1vh;
+    }
+
+    .calendar-header-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .calendar-view-btn {
+        flex-grow: 1;
+        text-align: center;
+    }
+}
