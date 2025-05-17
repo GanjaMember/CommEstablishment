@@ -11,7 +11,7 @@
     <div class="wrapper">
         <div class="main-block">
             <div class="main-block-heading">
-                <div class="main-block-title">Компании</div>
+                <div class="main-block-title">Проекты</div>
             </div>
             <div class="main-block-content">
                 <div class="project-card-list">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="project-card-index">{{ project.index }}</div>
                             <div class="employees-list">
-                                {% for employee in department.employees %}
+                                {% for employee in project.employees %}
                                     <div class="employee-bubble">
                                         {{ employee.index }}
                                     </div>
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <a href="/create_department" class="project-card empty">
+                    <a href="/create_project" class="project-card empty">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-none" type="ui"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M9 12l6 0"></path><path d="M12 9l0 6"></path></svg>
                     </a>
                 </div>

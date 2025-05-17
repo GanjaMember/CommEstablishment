@@ -107,7 +107,7 @@ def create_project():
     departments = Company.query.filter(Company.id == selected_company.id).first().departments
     form.responsible_department_id.choices = [(d.id, d.name) for d in departments]
     employees = Employee.query.filter(Employee.company_id == selected_company.id).all()
-    form.employees.choices = [(employee.id, employee.name) for employee in employees]
+    form.employees.choices = [(employee.id, employee.full_name) for employee in employees]
     if form.validate_on_submit():
         name = form.name.data
         description = form.description.data
@@ -116,10 +116,13 @@ def create_project():
         project = Project(
             name=name,
             description=description,
-            responsible_department_id=responsible_department_id,
+            responsible_dept_id=responsible_department_id,
             company_id=selected_company.id
         )
         db.session.add(project)
+        for employee_id in employees_ids:
+            employee = Employee.query.get(employee_id)
+            project.employees.append(employee)
         db.session.commit()
         return redirect('/projects')
     return render_template('create_project.html', form=form)

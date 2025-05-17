@@ -171,7 +171,7 @@ class Project(TimestampMixin, db.Model):
 
     @property
     def index(self) -> str:
-        return "".join(i[0] for i in self.full_name.title().split())
+        return "".join(i[0] for i in self.name.title().split())
 
 class Task(TimestampMixin, db.Model):
     __tablename__ = "task"
