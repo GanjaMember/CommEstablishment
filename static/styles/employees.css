@@ -33,7 +33,7 @@
     flex-grow: 1;
 }
 
-/* Action Bar Styles */
+/* Action Bar and Buttons */
 .action-bar {
     display: flex;
     flex-direction: column;
@@ -68,27 +68,6 @@
     background-color: var(--dark-blue-color);
 }
 
-/* Project Card Styles (used potentially elsewhere or for future features) */
-.project-card {
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 15px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.project-card-heading {
-    font-weight: bold;
-    color: var(--dark-color);
-}
-
-.project-card-index {
-    font-size: 0.8em;
-    color: var(--gray-color);
-}
-
 /* Employee Bubble Styles */
 .employees-list {
     display: flex;
@@ -113,22 +92,7 @@
     background-color: #ccc; /* Placeholder for avatar */
 }
 
-/* Empty State Styles */
-.project-card.empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray-color);
-    height: 100px; /* Adjust as needed */
-}
-
-.project-card.empty svg {
-    width: 30px;
-    height: 30px;
-    stroke: currentColor;
-}
-
-/* Department List Styles */
+/* Department Title */
 .department-title {
     font-weight: bold;
     margin-bottom: 5px;
