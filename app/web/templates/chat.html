@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/styles/company.css">
+<link rel="stylesheet" href="/static/styles/chats.css">
+<link rel="stylesheet" href="/static/styles/nav-panel.css">
+{% endblock %}
+
+{% block title %}{{ chat.name }}{% endblock %}
+
+{% block content %}
+<div class="chat-full-container">
+    <div class="chat-info">
+        <div>
+            <div class="chat-title">{{ chat.name }}</div>
+            <div class="chat-participants">{{ chat.participant_count }} участник(ов)</div>
+        </div>
+        <div>
+            <div class="chat-settings-container">
+                <div class="chat-settings-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                </div>
+                <div class="chat-drop-settings">
+                    <div class="chat-action">
+                        <svg class="svg-icon" viewBox="0 0 20 20">
+                            <path fill="none" d="M7.083,8.25H5.917v7h1.167V8.25z M18.75,3h-5.834V1.25c0-0.323-0.262-0.583-0.582-0.583H7.667
+                                c-0.322,0-0.583,0.261-0.583,0.583V3H1.25C0.928,3,0.667,3.261,0.667,3.583c0,0.323,0.261,0.583,0.583,0.583h1.167v14
+                                c0,0.644,0.522,1.166,1.167,1.166h12.833c0.645,0,1.168-0.522,1.168-1.166v-14h1.166c0.322,0,0.584-0.261,0.584-0.583
+                                C19.334,3.261,19.072,3,18.75,3z M8.25,1.833h3.5V3h-3.5V1.833z M16.416,17.584c0,0.322-0.262,0.583-0.582,0.583H4.167
+                                c-0.322,0-0.583-0.261-0.583-0.583V4.167h12.833V17.584z M14.084,8.25h-1.168v7h1.168V8.25z M10.583,7.083H9.417v8.167h1.167V7.083
+                                z"></path>
+                        </svg>
+                        <p class="chat-action-name">Удалить историю</p>
+                    </div>
+                    <div class="chat-action">
+                        <svg class="svg-icon" viewBox="0 0 20 20">
+                            <path fill="none" d="M7.083,8.25H5.917v7h1.167V8.25z M18.75,3h-5.834V1.25c0-0.323-0.262-0.583-0.582-0.583H7.667
+                                c-0.322,0-0.583,0.261-0.583,0.583V3H1.25C0.928,3,0.667,3.261,0.667,3.583c0,0.323,0.261,0.583,0.583,0.583h1.167v14
+                                c0,0.644,0.522,1.166,1.167,1.166h12.833c0.645,0,1.168-0.522,1.168-1.166v-14h1.166c0.322,0,0.584-0.261,0.584-0.583
+                                C19.334,3.261,19.072,3,18.75,3z M8.25,1.833h3.5V3h-3.5V1.833z M16.416,17.584c0,0.322-0.262,0.583-0.582,0.583H4.167
+                                c-0.322,0-0.583-0.261-0.583-0.583V4.167h12.833V17.584z M14.084,8.25h-1.168v7h1.168V8.25z M10.583,7.083H9.417v8.167h1.167V7.083
+                                z"></path>
+                        </svg>
+                        <p class="chat-action-name">Удалить чат</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-messages">
+        {% for message in messages %}
+            {# Determine if the message is sent by the current user #}
+            {# You'll need to replace 'current_user' with your actual logic to get the current user object #}
+            {% set is_sent_by_current_user = message.sender and message.sender.id == current_user.id if current_user else false %}
+
+            <div class="message {{ 'sent' if is_sent_by_current_user else 'received' }}">
+                <div class="message-avatar">{{ message.sender.full_name[:2]|upper if message.sender and message.sender.full_name else '??' }}</div>
+
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="message-author">{{ message.sender.full_name if message.sender else 'Unknown' }}</span>
+                        <span class="message-time">{{ message.timestamp.strftime('%H:%M') }}</span>{# Using HH:MM as in CSS comment example #}
+                    </div>
+                    <div class="message-text">{{ message.content }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="message-input-full">
+        <div class="message-input-wrapper">
+            <form action="{{ url_for('send_message', chat_id=chat.id) }}" method="POST" style="display: flex; width: 100%;">
+                <textarea name="message_content" class="message-input" placeholder="Введите сообщение..."></textarea>
+                <button type="submit" class="send-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M2 21L23 12L2 3v7l15 2l-15 2v7Z"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOMContentLoaded fired.');
+        const settingsIcon = document.querySelector('.chat-settings-icon');
+        const dropSettings = document.querySelector('.chat-drop-settings');
+        const historyDeleteOption = dropSettings.querySelector('.chat-action:nth-child(1) .chat-action-name'); // First .chat-action (history)
+        const chatDeleteOption = dropSettings.querySelector('.chat-action:nth-child(2) .chat-action-name'); // Second .chat-action (chat)
+        const settingsContainer = document.querySelector('.chat-settings-container');
+
+        console.log('Settings Icon:', settingsIcon);
+        console.log('Dropdown Settings:', dropSettings);
+        console.log('History Delete Option:', historyDeleteOption);
+        console.log('Chat Delete Option:', chatDeleteOption);
+        console.log('Settings Container:', settingsContainer);
+
+        // Toggle dropdown visibility by toggling a class on the container
+        settingsIcon.addEventListener('click', function(event) {
+            console.log('Settings icon clicked.');
+            event.stopPropagation();
+            settingsContainer.classList.toggle('active');
+            console.log('Toggled active class on container. Current class list:', settingsContainer.classList);
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            console.log('Document clicked.', event.target);
+            if (settingsContainer && !settingsContainer.contains(event.target) && event.target !== settingsIcon) {
+                settingsContainer.classList.remove('active');
+                console.log('Removed active class from container. Current class list:', settingsContainer.classList);
+            }
+        });
+
+        // Handle delete action (History)
+        historyDeleteOption.addEventListener('click', function() {
+            console.log('Delete history option clicked.');
+            if (confirm('Вы уверены, что хотите удалить историю чата?')) {
+                // Assuming a Flask route like /chat/<chat_id>/history for deleting history
+                fetch(`/chat/{{ chat.id }}/history`, {
+                    method: 'DELETE',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Optionally, reload or update UI after successful deletion
+                        window.location.reload(); // Simple reload for now
+                    } else {
+                        alert('Ошибка при удалении истории чата.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Произошла ошибка.');
+                });
+            }
+        });
+
+        // Handle delete action (Chat)
+        if (chatDeleteOption) {
+            chatDeleteOption.addEventListener('click', function() {
+                console.log('Delete chat option clicked.');
+                if (confirm('Вы уверены, что хотите удалить весь чат?')) {
+                    // Assuming a Flask route like /chat/<chat_id> for deleting the whole chat
+                    fetch(`/chat/{{ chat.id }}`, {
+                        method: 'DELETE',
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Redirect to the main page or chat list after successful deletion
+                            window.location.href = '/'; // Redirect to index page
+                        } else {
+                            alert('Ошибка при удалении чата.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Произошла ошибка.');
+                    });
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

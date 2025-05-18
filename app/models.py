@@ -6,10 +6,12 @@ db = SQLAlchemy()
 
 # --- ENUMS ---
 
+
 class Status(str, Enum):
     IN_PROGRESS = "in_progress"
     REVIEW = "review"
     DONE = "done"
+
 
 class EventType(str, Enum):
     CORPORATE = "corporate"
@@ -17,40 +19,57 @@ class EventType(str, Enum):
     TEAM_BUILDING = "team_building"
     OTHER = "other"
 
+
 # --- M2M ASSOCIATION TABLES ---
 
 department_employee = db.Table(
     "department_employee",
     db.Column("department_id", db.ForeignKey("department.id"), primary_key=True),
-    db.Column("employee_id",    db.ForeignKey("employee.id"), primary_key=True),
+    db.Column("employee_id", db.ForeignKey("employee.id"), primary_key=True),
     db.Column("is_lead", db.Boolean, default=False, nullable=False),
 )
 
 project_employee = db.Table(
     "project_employee",
-    db.Column("project_id",  db.ForeignKey("project.id"),  primary_key=True),
+    db.Column("project_id", db.ForeignKey("project.id"), primary_key=True),
     db.Column("employee_id", db.ForeignKey("employee.id"), primary_key=True),
 )
 
 task_employee = db.Table(
     "task_employee",
-    db.Column("task_id",    db.ForeignKey("task.id"),     primary_key=True),
-    db.Column("employee_id",db.ForeignKey("employee.id"), primary_key=True),
+    db.Column("task_id", db.ForeignKey("task.id"), primary_key=True),
+    db.Column("employee_id", db.ForeignKey("employee.id"), primary_key=True),
 )
 
 event_attendee = db.Table(
     "event_attendee",
-    db.Column("event_id",    db.ForeignKey("hr_event.id"), primary_key=True),
+    db.Column("event_id", db.ForeignKey("hr_event.id"), primary_key=True),
+    db.Column("employee_id", db.ForeignKey("employee.id"), primary_key=True),
+)
+
+chat_employee = db.Table(
+    "chat_employee",
+    db.Column("chat_id", db.ForeignKey("chat.id"), primary_key=True),
     db.Column("employee_id", db.ForeignKey("employee.id"), primary_key=True),
 )
 
 # --- BASE MODEL (add created/updated columns) ---
 
+
 class TimestampMixin(object):
-    created_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at = db.Column(
+        db.DateTime(timezone=True), default=datetime.utcnow, nullable=False
+    )
+    updated_at = db.Column(
+        db.DateTime(timezone=True),
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+        nullable=False,
+    )
+
 
 # --- MAIN ENTITIES ---
+
 
 class Company(TimestampMixin, db.Model):
     __tablename__ = "company"
@@ -63,11 +82,35 @@ class Company(TimestampMixin, db.Model):
     departments = db.relationship("Department", back_populates="company")
     projects = db.relationship("Project", back_populates="company")
     employees = db.relationship("Employee", back_populates="company")
-    knowledge_base = db.relationship("KnowledgeBase", back_populates="company", uselist=False)
+    knowledge_base = db.relationship(
+        "KnowledgeBase", back_populates="company", uselist=False
+    )
 
     @property
     def index(self) -> str:
         return "".join(i[0] for i in self.name.title().split())
+
+
+class Chat(TimestampMixin, db.Model):
+    __tablename__ = "chat"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(200), unique=True, index=True, nullable=False)
+
+    # relations
+    employees = db.relationship(
+        "Employee", secondary="chat_employee", back_populates="chats"
+    )
+    messages = db.relationship("Message", back_populates="chat", lazy="dynamic")
+
+    @property
+    def index(self) -> str:
+        return "".join(i[0] for i in self.name.title().split())
+
+    @property
+    def participant_count(self) -> int:
+        return len(self.employees)
+
 
 class Department(TimestampMixin, db.Model):
     __tablename__ = "department"
@@ -84,11 +127,14 @@ class Department(TimestampMixin, db.Model):
     )
     projects = db.relationship("Project", back_populates="responsible_dept")
 
-    __table_args__ = (db.UniqueConstraint("company_id", "name", name="uq_department_name"),)
-    
+    __table_args__ = (
+        db.UniqueConstraint("company_id", "name", name="uq_department_name"),
+    )
+
     @property
     def index(self) -> str:
         return "".join(i[0] for i in self.name.title().split())
+
 
 class Role(TimestampMixin, db.Model):
     __tablename__ = "role"
@@ -126,13 +172,15 @@ class Employee(TimestampMixin, db.Model):
     projects = db.relationship(
         "Project", secondary=project_employee, back_populates="employees"
     )
-    tasks = db.relationship(
-        "Task", secondary=task_employee, back_populates="employees"
-    )
+    tasks = db.relationship("Task", secondary=task_employee, back_populates="employees")
     records_created = db.relationship("KBRecord", back_populates="creator")
     events = db.relationship(
         "HREvent", secondary=event_attendee, back_populates="attendees"
     )
+    chats = db.relationship(
+        "Chat", secondary="chat_employee", back_populates="employees"
+    )
+    sent_messages = db.relationship("Message", back_populates="sender", lazy="dynamic")
 
     __table_args__ = (
         db.Index("ix_employee_fullname", "surname", "name", "patronymic"),
@@ -144,7 +192,7 @@ class Employee(TimestampMixin, db.Model):
         if self.patronymic:
             parts.append(self.patronymic)
         return " ".join(parts)
-    
+
     @property
     def index(self) -> str:
         return "".join(i[0] for i in self.full_name.title().split())
@@ -159,7 +207,9 @@ class Project(TimestampMixin, db.Model):
     status = db.Column(db.Enum(Status), default=Status.IN_PROGRESS, nullable=False)
 
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"), nullable=False)
-    responsible_dept_id = db.Column(db.Integer, db.ForeignKey("department.id"), nullable=True)
+    responsible_dept_id = db.Column(
+        db.Integer, db.ForeignKey("department.id"), nullable=True
+    )
 
     company = db.relationship("Company", back_populates="projects")
     responsible_dept = db.relationship("Department", back_populates="projects")
@@ -172,6 +222,7 @@ class Project(TimestampMixin, db.Model):
     @property
     def index(self) -> str:
         return "".join(i[0] for i in self.full_name.title().split())
+
 
 class Task(TimestampMixin, db.Model):
     __tablename__ = "task"
@@ -191,16 +242,16 @@ class Task(TimestampMixin, db.Model):
         "Employee", secondary=task_employee, back_populates="tasks"
     )
 
-    __table_args__ = (
-        db.Index("ix_task_status_due", "status", "due_date"),
-    )
+    __table_args__ = (db.Index("ix_task_status_due", "status", "due_date"),)
 
 
 class KnowledgeBase(TimestampMixin, db.Model):
     __tablename__ = "knowledge_base"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    company_id = db.Column(db.Integer, db.ForeignKey("company.id"), unique=True, nullable=False)
+    company_id = db.Column(
+        db.Integer, db.ForeignKey("company.id"), unique=True, nullable=False
+    )
 
     company = db.relationship("Company", back_populates="knowledge_base")
     records = db.relationship("KBRecord", back_populates="kb")
@@ -236,3 +287,17 @@ class HREvent(TimestampMixin, db.Model):
     attendees = db.relationship(
         "Employee", secondary=event_attendee, back_populates="events"
     )
+
+
+class Message(TimestampMixin, db.Model):
+    __tablename__ = "message"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    content = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
+
+    chat_id = db.Column(db.Integer, db.ForeignKey("chat.id"), nullable=False)
+    sender_id = db.Column(db.Integer, db.ForeignKey("employee.id"), nullable=True)
+
+    chat = db.relationship("Chat", back_populates="messages")
+    sender = db.relationship("Employee", back_populates="sent_messages")

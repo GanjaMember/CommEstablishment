@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/styles/company.css">
+{% endblock %}
+
+{% block title %}Создание чата{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label }}
+            <br><br>
+            {{ form.name(class="input-field") }}
+            {% for error in form.name.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.employees.label }}
+            <br><br>
+            {{ form.employees(class="input-field", multiple=True, size=8) }}
+            {% for error in form.employees.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="form-group">
+            {{ form.submit(class="primary-button") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
