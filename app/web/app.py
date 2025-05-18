@@ -585,9 +585,13 @@ def edit_project(project_id):
     project = Project.query.get_or_404(project_id)
     form = ProjectForm(obj=project)
     # Не забудьте подгрузить choices!
-    departments = get_all_departments()
+    departments = Department.query.filter(
+        Department.company_id == selected_company.id
+    ).all()
     form.responsible_department_id.choices = [(d.id, d.name) for d in departments]
-    employees = get_all_employees()
+    employees = Employee.query.filter(
+        Employee.company_id == selected_company.id
+    ).all()
     form.employees.choices = [(e.id, e.full_name) for e in employees]
     if request.method == 'GET':
         form.employees.data = [e.id for e in project.employees]
@@ -614,9 +618,13 @@ def delete_project(project_id):
 def edit_task(task_id):
     task = Task.query.get_or_404(task_id)
     form = TaskForm(obj=task)
-    projects = get_all_projects()
+    projects = Project.query.filter(
+        Project.company_id == selected_company.id
+    ).all()
     form.project_id.choices = [(p.id, p.name) for p in projects]
-    employees = get_all_employees()
+    employees = Employee.query.filter(
+        Employee.company_id == selected_company.id
+    ).all()
     form.employees.choices = [(e.id, e.full_name) for e in employees]
     if request.method == 'GET':
         form.employees.data = [e.id for e in task.employees]
