@@ -1,0 +1,28 @@
+.kanban-board {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    justify-content: center;
+}
+.kanban-column {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    width: 25%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.kanban-column h2 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    text-align: center;
+}
+.kanban-card {
+    width: auto !important;
+    cursor: grab;
+}
+.kanban-card.dragging {
+    opacity: 0.4;
+}

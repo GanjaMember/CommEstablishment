@@ -150,3 +150,35 @@ a {
 textarea {
     font-family: inherit;
 }
+
+/* Action Bar and Buttons */
+.action-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.action-link {
+    color: var(--blue-color);
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+.blue-button {
+    display: inline-block;
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-right: 10px;
+}
+
+.blue-button:hover {
+    background-color: var(--dark-blue-color);
+}

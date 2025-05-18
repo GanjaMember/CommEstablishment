@@ -1,6 +1,8 @@
 from typing import Optional
 
 from flask import Flask, render_template, request, redirect
+from flask_socketio import SocketIO, emit
+from typing import List
 from ..models import (
     db,
     Company,
@@ -13,26 +15,40 @@ from ..models import (
     KnowledgeBase,
     KBRecord,
     HREvent,
-    Message
+    Message,
+    Status
 )
 from .forms import (
     CompanyForm,
     DepartmentForm,
     ProjectForm,
     EmployeeForm,
-    ChatForm
+    ChatForm,
+    DepartmentIdForm,
+    ProjectIdForm,
+    TaskForm
 )
 
+socketio = SocketIO()
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "your_secret_key"
+def create_app():
+    app = Flask(__name__)
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SECRET_KEY"] = "your_secret_key"
 
-db.init_app(app)
+    db.init_app(app)
+    socketio.init_app(app, async_mode='threading')
+
+    with app.app_context():
+        db.create_all()
+
+    return app
+
+
+app = create_app()
 
 with app.app_context():
-    db.create_all()
     selected_company = Company.query.first()
 
 def get_chats():
@@ -55,7 +71,7 @@ def departments():
     return render_template('departments.html', departments=departments, active_page='departments', chats=get_chats())
 
 
-@app.route("/create_department", methods=["GET", "POST"])
+@app.route("/department/create", methods=["GET", "POST"])
 def create_department():
     form = DepartmentForm()
     if form.validate_on_submit():
@@ -68,11 +84,11 @@ def create_department():
         db.session.commit()
         return redirect('/departments')
     return render_template(
-        'create_department.html', form=form, active_page='create_department', chats=get_chats()
+        'department_form.html', form=form, active_page='departments', chats=get_chats()
     )
 
 
-@app.route("/create_chat", methods=["GET", "POST"])
+@app.route("/chat/create", methods=["GET", "POST"])
 def create_chat():
     form = ChatForm()
     employees = Employee.query.filter(Employee.company_id == selected_company.id).all()
@@ -95,7 +111,7 @@ def create_chat():
         # Redirect to the newly created chat page
         return redirect(f'/chat/{chat.id}')  # type: ignore
     return render_template(
-        'create_chat.html', form=form, active_page='create_chat', chats=get_chats()
+        'chat_form.html', form=form, chats=get_chats()
     )
 
 
@@ -150,7 +166,7 @@ def delete_chat(chat_id: int):
     return '', 200 # Return success status code
 
 
-@app.route("/create_company", methods=["GET", "POST"])
+@app.route("/company/create", methods=["GET", "POST"])
 def create_company():
     form = CompanyForm()
     if form.validate_on_submit():
@@ -161,7 +177,7 @@ def create_company():
         db.session.commit()
         # Redirect to the new company page or companies list
         return redirect(f'/company/{company.id}')
-    return render_template('create_company.html', form=form, active_page='create_company', chats=get_chats())
+    return render_template('company_form.html', form=form, chats=get_chats())
 
 
 @app.route('/company/', defaults={'company_id': None})
@@ -187,10 +203,133 @@ def company(company_id: Optional[int]):
     )
 
 
-@app.route("/calendar")
+@app.route('/tasks')
+def tasks():
+    company = Company.query.filter_by(id=selected_company.id).first()
+    if not company:
+        return "Company not found", 404
+
+    form = ProjectIdForm(request.args)
+    form.project_id.choices.extend(
+        [(project.id, project.name) for project in company.projects]
+    )
+
+    tasks = []
+    project_id = request.args.get('project_id', type=int)
+    if project_id:
+        project = Project.query.get_or_404(project_id)
+        tasks = project.tasks
+        form.project_id.data = project_id
+    else:
+        tasks = Task.query.join(Project).filter(
+            Project.company_id == selected_company.id
+        ).all()
+    return render_template(
+        'tasks.html',
+        active_page='tasks',
+        chats=get_chats(),
+        tasks=tasks,
+        form=form
+    )
+
+
+@app.route('/task/create', methods=['GET', 'POST'])
+def create_task():
+    form = TaskForm()
+    projects = Project.query.filter(
+        Project.company_id == selected_company.id
+    ).all()
+    form.project_id.choices = [(project.id, project.name) for project in projects]
+    employees = Employee.query.filter(
+        Employee.company_id == selected_company.id
+    ).all()
+    form.employees.choices = [(employee.id, employee.full_name) for employee in employees]
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        start_date = form.start_date.data
+        due_date = form.due_date.data
+        priority = form.priority.data
+        project_id = form.project_id.data
+        employees_ids = form.employees.data
+        task = Task(
+            name=name,
+            description=description,
+            start_date=start_date,
+            due_date=due_date,
+            priority=priority,
+            status=Status.TODO,
+        )
+        project = Project.query.get(project_id)
+        project.tasks.append(task)
+        for employee_id in employees_ids:
+            employee = Employee.query.get(employee_id)
+            task.employees.append(employee)
+        
+        db.session.add(task)
+        db.session.commit()
+
+        task_data = {
+            "id": task.id,
+            "name": task.name,
+            "status": task.status.value,
+            "index": task.index,
+            "employees": [
+                {
+                    "index": employee.index, 
+                    "id": employee.id, 
+                    "full_name": employee.full_name
+                }
+                for employee in task.employees
+            ],
+        }
+
+        socketio.emit('task_created', task_data)
+
+        return redirect('/tasks')
+    return render_template(
+        'task_form.html',
+        form=form,
+        chats=get_chats()
+    )
+
+
+@app.route('/calendar/', methods=['GET', 'POST'])
 def calendar():
-    # Pass chats to the template for the sidebar
-    return render_template('calendar.html', active_page='calendar', chats=get_chats())
+    # Get company and initialize form with department choices
+    company = Company.query.filter_by(id=selected_company.id).first()
+    
+    if not company:
+        return "Company not found", 404
+    
+    form = DepartmentIdForm()
+    form.department_id.choices.extend(
+        [(department.id, department.name) for department in company.departments]
+    )
+    
+    tasks: List[Task] = []
+    
+    if request.method == 'POST' and form.validate_on_submit():
+        department_id = form.department_id.data
+        if department_id:
+            # Get tasks filtered by department
+            department = Department.query.get_or_404(department_id)
+            tasks = Task.query.join(Project).filter(
+                Project.responsible_dept_id == department_id
+            ).all()
+    else:
+        # Get all company tasks
+        tasks = Task.query.join(Project).filter(
+            Project.company_id == selected_company.id
+        ).all()
+    
+    return render_template(
+        'calendar.html',
+        active_page='calendar',
+        chats=get_chats(),
+        tasks=tasks,
+        form=form
+    )
 
 
 @app.route("/companies")
@@ -213,7 +352,7 @@ def projects():
     return render_template('projects.html', projects=projects, active_page='projects', chats=get_chats())
 
 
-@app.route("/create_project", methods=["GET", "POST"])
+@app.route("/project/create", methods=["GET", "POST"])
 def create_project():
     form = ProjectForm()
     departments = Company.query.filter(Company.id == selected_company.id).first().departments
@@ -237,7 +376,7 @@ def create_project():
             project.employees.append(employee)
         db.session.commit()
         return redirect('/projects')
-    return render_template('create_project.html', form=form)
+    return render_template('project_form.html', chats=get_chats(), form=form)
 
 
 @app.route("/employees")
@@ -253,7 +392,7 @@ def employees():
     return render_template('employees.html', employees=employees, active_page='employees', chats=get_chats())
 
 
-@app.route("/create_employee", methods=["GET", "POST"])
+@app.route("/employee/create", methods=["GET", "POST"])
 def create_employee():
     form = EmployeeForm()
     if form.validate_on_submit():
@@ -279,5 +418,19 @@ def create_employee():
         return redirect('/employees')
     # Pass chats to the template for the sidebar
     return render_template(
-        'create_employee.html', form=form, active_page='create_employee', chats=get_chats()
+        'employee_form.html', form=form, active_page='employees', chats=get_chats()
     )
+
+
+@socketio.on('move_task')
+def handle_move_task(data):
+    task_id = int(data['task_id'])
+    new_status = data['new_status']
+    task = Task.query.get(task_id)
+    task.status = Status(new_status)
+    db.session.commit()
+    if task:
+        task.status = new_status
+        db.session.commit()
+        # Уведомляем всех, кроме отправителя
+        emit('task_moved', {'task_id': task_id, 'new_status': new_status}, broadcast=True, include_self=False)

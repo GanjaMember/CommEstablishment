@@ -8,6 +8,7 @@ db = SQLAlchemy()
 
 
 class Status(str, Enum):
+    TODO = "todo"
     IN_PROGRESS = "in_progress"
     REVIEW = "review"
     DONE = "done"
@@ -244,6 +245,9 @@ class Task(TimestampMixin, db.Model):
 
     __table_args__ = (db.Index("ix_task_status_due", "status", "due_date"),)
 
+    @property
+    def index(self) -> str:
+        return "".join(i[0] for i in self.name.title().split())
 
 class KnowledgeBase(TimestampMixin, db.Model):
     __tablename__ = "knowledge_base"

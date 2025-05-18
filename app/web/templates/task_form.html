@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/styles/company.css">
+{% endblock %}
+
+{% block title %}Создание задачи{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label }}
+            <br><br>
+            {{ form.name(class="input-field") }}
+            {% for error in form.name.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.description.label }}
+            <br><br>
+            {{ form.description(class="input-field") }}
+            {% for error in form.description.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.start_date.label }}
+            <br><br>
+            {{ form.start_date(class="input-field") }}
+            {% for error in form.start_date.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.due_date.label }}
+            <br><br>
+            {{ form.due_date(class="input-field") }}
+            {% for error in form.due_date.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.priority.label }}
+            <br><br>
+            {{ form.priority(class="input-field") }}
+            {% for error in form.priority.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.project_id.label }}
+            <br><br>
+            {{ form.project_id(class="input-field") }}
+            {% for error in form.project_id.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+        <div class="form-group">
+            {{ form.employees.label }}
+            <br><br>
+            {{ form.employees(class="input-field", multiple=True, size=8) }}
+            {% for error in form.employees.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="form-group">
+            {{ form.submit(class="primary-button") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

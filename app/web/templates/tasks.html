@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<link rel="stylesheet" href="/static/styles/calendar.css">
+<link rel="stylesheet" href="/static/styles/tasks.css">
+<link rel="stylesheet" href="/static/styles/company.css">
+{% endblock %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+<main>
+    <h2>Задачи</h2>
+    <form method="get">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.project_id(class="input-field") }}
+            {% for error in form.project_id.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="primary-button") }}
+        </div>
+    </form>
+
+    <br>
+
+    <div class="kanban-board">
+        <div class="kanban-column" id="todo" data-status="todo">
+            <h2>To Do</h2>
+            {% for task in tasks %}
+                {% if task.status.value == "todo" %}
+                    <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
+                        <div class="project-card-header">
+                            <div class="project-card-heading">{{ task.name }}</div>
+                            <div class="project-card-actions">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            </div>
+                        </div>
+                        <div class="project-card-index">{{ task.index }}</div>
+                        <div class="employees-list">
+                            {% for employee in task.employees %}
+                                <div class="employee-bubble">
+                                    {{ employee.index }}
+                                </div>
+                            {% endfor %}
+                            <div class="employee-bubble">...</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="kanban-column" id="in_progress" data-status="in_progress">
+            <h2>В работе</h2>
+            {% for task in tasks %}
+                {% if task.status.value == "in_progress" %}
+                    <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
+                        <div class="project-card-header">
+                            <div class="project-card-heading">{{ task.name }}</div>
+                            <div class="project-card-actions">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            </div>
+                        </div>
+                        <div class="project-card-index">{{ task.index }}</div>
+                        <div class="employees-list">
+                            {% for employee in task.employees %}
+                                <div class="employee-bubble">
+                                    {{ employee.index }}
+                                </div>
+                            {% endfor %}
+                            <div class="employee-bubble">...</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="kanban-column" id="review" data-status="review">
+            <h2>На проверке</h2>
+            {% for task in tasks %}
+                {% if task.status.value == "review" %}
+                    <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
+                        <div class="project-card-header">
+                            <div class="project-card-heading">{{ task.name }}</div>
+                            <div class="project-card-actions">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            </div>
+                        </div>
+                        <div class="project-card-index">{{ task.index }}</div>
+                        <div class="employees-list">
+                            {% for employee in task.employees %}
+                                <div class="employee-bubble">
+                                    {{ employee.index }}
+                                </div>
+                            {% endfor %}
+                            <div class="employee-bubble">...</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="kanban-column" id="done" data-status="done">
+            <h2>Готово</h2>
+            {% for task in tasks %}
+                {% if task.status.value == "done" %}
+                    <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
+                        <div class="project-card-header">
+                            <div class="project-card-heading">{{ task.name }}</div>
+                            <div class="project-card-actions">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            </div>
+                        </div>
+                        <div class="project-card-index">{{ task.index }}</div>
+                        <div class="employees-list">
+                            {% for employee in task.employees %}
+                                <div class="employee-bubble">
+                                    {{ employee.index }}
+                                </div>
+                            {% endfor %}
+                            <div class="employee-bubble">...</div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+    <a href="/task/create" class="action-link">Создать задачу</a>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+<script src="/static/js/kanban.js"></script>
+{% endblock %}

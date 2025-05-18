@@ -39,48 +39,15 @@
     flex-grow: 1;
 }
 
-/* Action Bar and Buttons */
-.action-bar {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.action-link {
-    color: var(--blue-color);
-    text-decoration: none;
-    font-size: 0.9em;
-}
-
-.action-link:hover {
-    text-decoration: underline;
-}
-
-.blue-button {
-    display: inline-block;
-    background-color: var(--blue-color);
-    color: var(--white-color);
-    padding: 8px 15px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.9em;
-    margin-right: 10px;
-}
-
-.blue-button:hover {
-    background-color: var(--dark-blue-color);
-}
-
 /* Project Card Styles */
 .project-card {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 15px;
     width: 200px;
     margin-bottom: 10px;
-    display: flex;
     flex-direction: column;
     gap: 10px;
 }
