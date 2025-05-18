@@ -35,8 +35,13 @@
                     <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
                         <div class="project-card-header">
                             <div class="project-card-heading">{{ task.name }}</div>
-                            <div class="project-card-actions">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            <div class="project-card-actions" style="position: relative;">
+                                <svg class="context-menu-trigger" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                                <div class="context-menu" style="display: none; position: absolute; top: 24px; right: 0;">
+                                    <a href="/task/{{ task.id }}" class="context-menu-item">Просмотреть</a>
+                                    <a href="/task/edit/{{ task.id }}" class="context-menu-item">Редактировать</a>
+                                    <a href="/task/delete/{{ task.id }}" class="context-menu-item delete" onclick="return confirm('Удалить задачу?');">Удалить</a>
+                                </div>
                             </div>
                         </div>
                         <div class="project-card-index">{{ task.index }}</div>
@@ -59,8 +64,13 @@
                     <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
                         <div class="project-card-header">
                             <div class="project-card-heading">{{ task.name }}</div>
-                            <div class="project-card-actions">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            <div class="project-card-actions" style="position: relative;">
+                                <svg class="context-menu-trigger" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                                <div class="context-menu" style="display: none; position: absolute; top: 24px; right: 0;">
+                                    <a href="/task/{{ task.id }}" class="context-menu-item">Просмотреть</a>
+                                    <a href="/task/edit/{{ task.id }}" class="context-menu-item">Редактировать</a>
+                                    <a href="/task/delete/{{ task.id }}" class="context-menu-item delete" onclick="return confirm('Удалить задачу?');">Удалить</a>
+                                </div>
                             </div>
                         </div>
                         <div class="project-card-index">{{ task.index }}</div>
@@ -83,8 +93,13 @@
                     <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
                         <div class="project-card-header">
                             <div class="project-card-heading">{{ task.name }}</div>
-                            <div class="project-card-actions">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            <div class="project-card-actions" style="position: relative;">
+                                <svg class="context-menu-trigger" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                                <div class="context-menu" style="display: none; position: absolute; top: 24px; right: 0;">
+                                    <a href="/task/{{ task.id }}" class="context-menu-item">Просмотреть</a>
+                                    <a href="/task/edit/{{ task.id }}" class="context-menu-item">Редактировать</a>
+                                    <a href="/task/delete/{{ task.id }}" class="context-menu-item delete" onclick="return confirm('Удалить задачу?');">Удалить</a>
+                                </div>
                             </div>
                         </div>
                         <div class="project-card-index">{{ task.index }}</div>
@@ -107,8 +122,13 @@
                     <div class="kanban-card project-card" draggable="true" data-task-id="{{ task.id }}">
                         <div class="project-card-header">
                             <div class="project-card-heading">{{ task.name }}</div>
-                            <div class="project-card-actions">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                            <div class="project-card-actions" style="position: relative;">
+                                <svg class="context-menu-trigger" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                                <div class="context-menu" style="display: none; position: absolute; top: 24px; right: 0;">
+                                    <a href="/task/{{ task.id }}" class="context-menu-item">Просмотреть</a>
+                                    <a href="/task/edit/{{ task.id }}" class="context-menu-item">Редактировать</a>
+                                    <a href="/task/delete/{{ task.id }}" class="context-menu-item delete" onclick="return confirm('Удалить задачу?');">Удалить</a>
+                                </div>
                             </div>
                         </div>
                         <div class="project-card-index">{{ task.index }}</div>
@@ -133,4 +153,5 @@
 {% block scripts %}
 <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
 <script src="/static/js/kanban.js"></script>
+<script src="/static/js/cardContextMenu.js"></script>
 {% endblock %}

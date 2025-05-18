@@ -1,6 +1,10 @@
 from enum import Enum
 from datetime import datetime, date
+
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 db = SQLAlchemy()
 
@@ -89,7 +93,7 @@ class Company(TimestampMixin, db.Model):
 
     @property
     def index(self) -> str:
-        return "".join(i[0] for i in self.name.title().split())
+        return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
 
 
 class Chat(TimestampMixin, db.Model):
@@ -106,7 +110,7 @@ class Chat(TimestampMixin, db.Model):
 
     @property
     def index(self) -> str:
-        return "".join(i[0] for i in self.name.title().split())
+        return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
 
     @property
     def participant_count(self) -> int:
@@ -134,7 +138,7 @@ class Department(TimestampMixin, db.Model):
 
     @property
     def index(self) -> str:
-        return "".join(i[0] for i in self.name.title().split())
+        return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
 
 
 class Role(TimestampMixin, db.Model):
@@ -166,6 +170,9 @@ class Employee(TimestampMixin, db.Model):
 
     company = db.relationship("Company", back_populates="employees")
     role = db.relationship("Role", back_populates="employees")
+    
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
+    user = db.relationship("User", back_populates="employee")
 
     departments = db.relationship(
         "Department", secondary=department_employee, back_populates="employees"
@@ -222,7 +229,7 @@ class Project(TimestampMixin, db.Model):
 
     @property
     def index(self) -> str:
-        return "".join(i[0] for i in self.name.title().split())
+        return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
 
 
 class Task(TimestampMixin, db.Model):
@@ -247,7 +254,7 @@ class Task(TimestampMixin, db.Model):
 
     @property
     def index(self) -> str:
-        return "".join(i[0] for i in self.name.title().split())
+        return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
 
 class KnowledgeBase(TimestampMixin, db.Model):
     __tablename__ = "knowledge_base"
@@ -305,3 +312,16 @@ class Message(TimestampMixin, db.Model):
 
     chat = db.relationship("Chat", back_populates="messages")
     sender = db.relationship("Employee", back_populates="sent_messages")
+
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+    employee = db.relationship("Employee", back_populates="user", uselist=False)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)

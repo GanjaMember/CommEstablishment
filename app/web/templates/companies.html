@@ -19,8 +19,12 @@
                         <div class="project-card">
                             <div class="project-card-header">
                                 <div class="project-card-heading">{{ company.name }}</div>
-                                <div class="project-card-actions">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                                <div class="project-card-actions" style="position: relative;">
+                                    <svg class="context-menu-trigger" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-grey hover:text-grey-l20 active:text-grey-d20" type="ui"><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg>
+                                    <div class="context-menu" style="display: none; position: absolute; top: 24px; right: 0;">
+                                        <a href="/company/edit/{{ company.id }}" class="context-menu-item">Редактировать</a>
+                                        <a href="/company/delete/{{ company.id }}" class="context-menu-item delete" onclick="return confirm('Удалить компанию?');">Удалить</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="project-card-index">{{ company.index }}</div>
@@ -42,4 +46,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/cardContextMenu.js"></script>
 {% endblock %}

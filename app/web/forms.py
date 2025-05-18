@@ -6,9 +6,11 @@ from wtforms import (
     SelectMultipleField,
     DateField,
     SubmitField,
+    PasswordField
 )
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 
+from ..models import User
 
 class CompanyForm(FlaskForm):
     name = StringField("Название", validators=[DataRequired()])
@@ -36,21 +38,6 @@ class ProjectForm(FlaskForm):
     )
     employees = SelectMultipleField("Сотрудники", choices=[], coerce=int)
     submit = SubmitField("Создать проект")
-
-
-class EmployeeForm(FlaskForm):
-    surname = StringField("Фамилия", validators=[DataRequired()])
-    name = StringField("Имя", validators=[DataRequired()])
-    patronymic = StringField("Отчество", validators=[])
-    hire_date = DateField(
-        "Дата приема на работу", format="%Y-%m-%d", validators=[DataRequired()]
-    )
-    birth_date = DateField(
-        "Дата рождения", format="%Y-%m-%d", validators=[DataRequired()]
-    )
-    contact = StringField("Контактные данные", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired()])
-    submit = SubmitField("Создать сотрудника")
 
 
 class DepartmentIdForm(FlaskForm):
@@ -96,3 +83,32 @@ class TaskForm(FlaskForm):
     )
     employees = SelectMultipleField("Сотрудники", choices=[], coerce=int)
     submit = SubmitField("Создать задачу")
+
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
+    password = PasswordField('Пароль', validators=[DataRequired(), Length(min=6)])
+    password2 = PasswordField('Повторите пароль', validators=[DataRequired(), EqualTo('password')])
+    surname = StringField("Фамилия", validators=[DataRequired()])
+    name = StringField("Имя", validators=[DataRequired()])
+    patronymic = StringField("Отчество", validators=[])
+    hire_date = DateField(
+        "Дата приема на работу", format="%Y-%m-%d", validators=[DataRequired()]
+    )
+    birth_date = DateField(
+        "Дата рождения", format="%Y-%m-%d", validators=[DataRequired()]
+    )
+    contact = StringField("Контактные данные", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired()])
+    submit = SubmitField('Зарегистрироваться')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
+            raise ValidationError('Пользователь с таким именем уже существует. Пожалуйста, выберите другое имя.')
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=80)])
+    password = PasswordField('Пароль', validators=[DataRequired(), Length(min=6)])
+    submit = SubmitField('Войти')

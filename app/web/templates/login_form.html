@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="/static/styles/company.css">
+{% endblock %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <h2>Авторизация</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.username.label }}
+            <br><br>
+            {{ form.username(class="input-field") }}
+            {% for error in form.username.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br><br>
+
+        <div class="form-group">
+            {{ form.password.label }}
+            <br><br>
+            {{ form.password(class="input-field") }}
+            {% for error in form.password.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <br>
+
+        <div class="form-group">
+            {{ form.submit(class="primary-button") }}
+        </div>
+    </form>
+    <a class="action-link" href="/register">Зарегистрироваться</a>
+</div>
+{% endblock %}

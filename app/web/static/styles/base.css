@@ -182,3 +182,28 @@ textarea {
 .blue-button:hover {
     background-color: var(--dark-blue-color);
 }
+
+.context-menu {
+    min-width: 120px;
+    background: var(--white-color, #fff);
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    z-index: 100;
+    padding: 6px 0;
+    display: none;
+}
+.context-menu-item {
+    display: block;
+    padding: 8px 16px;
+    color: var(--dark-color, #222);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.context-menu-item:hover {
+    background: var(--hover-color, #f5f5f5);
+}
+.context-menu-item.delete {
+    color: #e74c3c;
+}

@@ -1,8 +1,10 @@
-from typing import Optional
+from typing import Optional, List
+from datetime import datetime
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from flask_socketio import SocketIO, emit
-from typing import List
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+
 from ..models import (
     db,
     Company,
@@ -16,45 +18,126 @@ from ..models import (
     KBRecord,
     HREvent,
     Message,
-    Status
+    Status,
+    User
 )
 from .forms import (
     CompanyForm,
     DepartmentForm,
     ProjectForm,
-    EmployeeForm,
     ChatForm,
     DepartmentIdForm,
     ProjectIdForm,
-    TaskForm
+    TaskForm,
+    RegistrationForm,
+    LoginForm
 )
 
 socketio = SocketIO()
 
-def create_app():
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["SECRET_KEY"] = "your_secret_key"
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = "your_secret_key"
 
-    db.init_app(app)
-    socketio.init_app(app, async_mode='threading')
-
-    with app.app_context():
-        db.create_all()
-
-    return app
-
-
-app = create_app()
+db.init_app(app)
+socketio.init_app(app, async_mode='threading')
 
 with app.app_context():
+    db.create_all()
     selected_company = Company.query.first()
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
 
 def get_chats():
     # This function fetches all chats and can be reused in routes
     return Chat.query.all()
 
+
+def serialize_task(task):
+    return {
+        "id": task.id,
+        "name": task.name,
+        "description": task.description,
+        "start_date": task.start_date.isoformat() if task.start_date else None,
+        "due_date": task.due_date.isoformat() if task.due_date else None,
+        "priority": task.priority,
+        "status": task.status.value if hasattr(task.status, 'value') else str(task.status),
+        # Можно добавить project/employee info, если нужно
+    }
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+@app.context_processor
+def inject_now():
+    return {'now': datetime.now}
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect('/')
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data)
+        user.set_password(form.password.data)
+
+        surname = form.surname.data
+        name = form.name.data
+        patronymic = form.patronymic.data
+        hire_date = form.hire_date.data
+        birth_date = form.birth_date.data
+        contacts = form.contact.data
+        email = form.email.data
+        employee = Employee(
+            surname=surname,
+            name=name,
+            patronymic=patronymic,
+            hire_date=hire_date,
+            birth_date=birth_date,
+            contacts=contacts,
+            email=email,
+            company_id=selected_company.id
+        )
+        employee.user = user
+        db.session.add(employee)
+        db.session.add(user)
+        db.session.commit()
+        flash('Registration successful! Please log in.')
+        return redirect('/login')
+    return render_template('registration_form.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect('/')
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user)
+            flash('Login successful!')
+            return redirect('/')
+        else:
+            flash('Invalid username or password.')
+    return render_template('login_form.html', form=form)
+
+
+@app.route('/me')
+@login_required
+def me():
+    return render_template(
+        'me.html',
+        employee=current_user.employee,
+        chats=get_chats()
+    )
 
 @app.route("/")
 def index():
@@ -294,40 +377,33 @@ def create_task():
     )
 
 
-@app.route('/calendar/', methods=['GET', 'POST'])
+@app.route('/calendar/', methods=['GET'])
 def calendar():
-    # Get company and initialize form with department choices
     company = Company.query.filter_by(id=selected_company.id).first()
-    
     if not company:
         return "Company not found", 404
-    
-    form = DepartmentIdForm()
-    form.department_id.choices.extend(
-        [(department.id, department.name) for department in company.departments]
+
+    form = ProjectIdForm(request.args)
+    form.project_id.choices.extend(
+        [(project.id, project.name) for project in company.projects]
     )
-    
-    tasks: List[Task] = []
-    
-    if request.method == 'POST' and form.validate_on_submit():
-        department_id = form.department_id.data
-        if department_id:
-            # Get tasks filtered by department
-            department = Department.query.get_or_404(department_id)
-            tasks = Task.query.join(Project).filter(
-                Project.responsible_dept_id == department_id
-            ).all()
+
+    tasks = []
+    project_id = request.args.get('project_id', type=int)
+    if project_id:
+        project = Project.query.get_or_404(project_id)
+        tasks = project.tasks
+        form.project_id.data = project_id
     else:
-        # Get all company tasks
         tasks = Task.query.join(Project).filter(
             Project.company_id == selected_company.id
         ).all()
-    
+
     return render_template(
         'calendar.html',
         active_page='calendar',
         chats=get_chats(),
-        tasks=tasks,
+        tasks=[serialize_task(task) for task in tasks],
         form=form
     )
 
@@ -390,36 +466,6 @@ def employees():
     ).all()
     # Pass chats to the template for the sidebar
     return render_template('employees.html', employees=employees, active_page='employees', chats=get_chats())
-
-
-@app.route("/employee/create", methods=["GET", "POST"])
-def create_employee():
-    form = EmployeeForm()
-    if form.validate_on_submit():
-        surname = form.surname.data
-        name = form.name.data
-        patronymic = form.patronymic.data
-        hire_date = form.hire_date.data
-        birth_date = form.birth_date.data
-        contacts = form.contact.data
-        email = form.email.data
-        employee = Employee(
-            surname=surname,
-            name=name,
-            patronymic=patronymic,
-            hire_date=hire_date,
-            birth_date=birth_date,
-            contacts=contacts,
-            email=email,
-            company_id=selected_company.id
-        )
-        db.session.add(employee)
-        db.session.commit()
-        return redirect('/employees')
-    # Pass chats to the template for the sidebar
-    return render_template(
-        'employee_form.html', form=form, active_page='employees', chats=get_chats()
-    )
 
 
 @socketio.on('move_task')
