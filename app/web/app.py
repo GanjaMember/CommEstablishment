@@ -216,39 +216,28 @@ def projects():
 @app.route("/create_project", methods=["GET", "POST"])
 def create_project():
     form = ProjectForm()
-    # Ensure selected_company is set before querying
-    if not selected_company:
-        # Placeholder - add appropriate handling
-        pass
-    else:
-        departments = Company.query.filter(
-            Company.id == selected_company.id
-        ).first().departments
-        form.responsible_department_id.choices = [(d.id, d.name) for d in departments]
-        employees = Employee.query.filter(
-            Employee.company_id == selected_company.id
-        ).all()
-        form.employees.choices = [
-            (employee.id, employee.name) for employee in employees
-        ]
-        if form.validate_on_submit():
-            name = form.name.data
-            description = form.description.data
-            responsible_department_id = form.responsible_department_id.data
-            employees_ids = form.employees.data  # Unused variable - can be removed
-            project = Project(
-                name=name,
-                description=description,
-                responsible_department_id=responsible_department_id,
-                company_id=selected_company.id
-            )
-            db.session.add(project)
-            db.session.commit()
-            return redirect('/projects')
-    # Pass chats to the template for the sidebar
-    return render_template(
-        'create_project.html', form=form, active_page='create_project', chats=get_chats()
-    )
+    departments = Company.query.filter(Company.id == selected_company.id).first().departments
+    form.responsible_department_id.choices = [(d.id, d.name) for d in departments]
+    employees = Employee.query.filter(Employee.company_id == selected_company.id).all()
+    form.employees.choices = [(employee.id, employee.full_name) for employee in employees]
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+        responsible_department_id = form.responsible_department_id.data
+        employees_ids = form.employees.data
+        project = Project(
+            name=name,
+            description=description,
+            responsible_dept_id=responsible_department_id,
+            company_id=selected_company.id
+        )
+        db.session.add(project)
+        for employee_id in employees_ids:
+            employee = Employee.query.get(employee_id)
+            project.employees.append(employee)
+        db.session.commit()
+        return redirect('/projects')
+    return render_template('create_project.html', form=form)
 
 
 @app.route("/employees")
