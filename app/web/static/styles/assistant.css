@@ -1,0 +1,97 @@
+.messages-container {
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    padding-inline: 1.5vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-info  {
+    height: 10%;
+}
+
+#assistant-button:hover {
+	cursor: pointer;
+}
+
+.assistant-panel .chat-content .messages-container .messages {
+	margin-inline: 2.5%;
+	margin-top: 3.5%;
+}
+
+pre code, code {
+	white-space: pre-wrap !important;       /* Основное свойство для переноса */
+	word-wrap: break-word !important;       /* Для IE и старых браузеров */
+	overflow-wrap: break-word !important;   /* Современная версия word-wrap */
+	display: block;                         /* Чтобы блок занимал всю ширину */
+	width: 100%;                           /* Занимать всю доступную ширину */
+	max-width: 100%;                       /* Не выходить за пределы родителя */
+  }
+ 
+.assistant-panel .chat-content .messages-container .messages p {
+	margin: 0;
+}
+
+.message-item {
+	padding: 8px 12px;
+	margin: 5px 10px;
+	border-radius: 15px;
+	max-width: 45%;
+	word-wrap: break-word;
+	margin-bottom: 2.5%;
+}
+.user-message {
+	background-color: var(--blue-color); 
+	color: white;
+	margin-left: auto;
+	border-bottom-right-radius: 5px;
+}
+.assistant-message {
+	background-color: #333; 
+	color: white;
+	margin-right: auto; 
+	border-bottom-left-radius: 5px;
+}
+
+.buttons {
+display: flex;
+flex-direction: row;
+}
+
+.system-info { 
+	font-style: "Inter", serif;
+	color: #aaa;
+	text-align: center;
+	font-size: 0.9em;
+	margin: 10px auto;
+	margin-top: auto;
+	background-color: transparent;
+}
+
+.message-loading-indicator {
+	display: none; 
+	text-align: center; 
+	padding: 10px;
+}
+
+.clear-button {
+    border: none;
+    margin-left: 1vw;
+    margin-right: 0.5vw;
+    background: none;
+    cursor: pointer;
+    color: var(--blue-color);
+    padding: 0.5vh;
+    display: flex;
+}
+
+.clear-button svg {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.disabled {
+    cursor: default;
+}

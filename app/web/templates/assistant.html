@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/company.css">
+    <link rel="stylesheet" href="/static/styles/assistant.css">
+    <link rel="stylesheet" href="/static/styles/nav-panel.css">
+{% endblock %}
+
+{% block content %}
+<div class="chat-full-container">
+    <div class="chat-info">
+        <div>
+            <div class="chat-title">Ассистент</div>
+        </div>
+    </div>
+    <div class="messages-container">
+        <div class="messages" id="messages">
+            {% for m in messages %}
+                <div class="message-item {% if m['role'] == 'user' %}user-message{% else %}assistant-message{% endif %}">
+                    {{ m['content'] }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="message-loading-indicator" id="loading" style="display: none;">Ассистент думает...</div>
+    </div>
+
+    <div class="message-input-full">
+        <div class="message-input-wrapper">
+            <div class="input" style="display: flex; width: 100%;">
+                <textarea name="message_content" class="message-input" id="message_input" placeholder="Введите сообщение..."></textarea>
+                <div class="buttons">
+                    <button class="send-button" id="send_btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M2 21L23 12L2 3v7l15 2l-15 2v7Z"/>
+                        </svg>
+                    </button>
+                    <button class="clear-button" id="clear_btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        const messages = document.getElementById('messages');
+        const input = document.getElementById('message_input');
+        const sendBtn = document.getElementById('send_btn');
+        const clearBtn = document.getElementById('clear_btn');
+        const loading = document.getElementById('loading');
+
+        function addMessage(content, from) {
+            const el = document.createElement('div');
+            el.classList.add('message-item');
+            if (from === 'user') {
+                el.classList.add('user-message');
+            } else {
+                el.classList.add('assistant-message');
+            }
+            el.innerText = content;
+            messages.appendChild(el);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', function() {
+            const msg = input.value.trim();
+            if (!msg) return;
+            addMessage(msg, 'user');
+            input.value = '';
+            loading.style.display = 'block';
+            socket.emit('user_message', {text: msg});
+        });
+
+        clearBtn.addEventListener('click', function() {
+            messages.innerHTML = '';
+        });
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+
+        socket.on('assistant_message', function(data) {
+            loading.style.display = 'none';
+            addMessage(data.text, 'assistant');
+        });
+
+        socket.on('connect', function() {
+            loading.style.display = 'none';
+        });
+    </script>
+{% endblock %}

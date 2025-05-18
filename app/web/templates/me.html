@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Мой профиль{% endblock %}
+
+{% block content %}
+<div class="wrapper" style="max-width:600px;margin:0 auto;">
+    <h2 style="text-align:center;margin-bottom:32px;">Профиль сотрудника</h2>
+    <div style="background:var(--white-color);border-radius:8px;box-shadow:var(--shadow-color) 0px 1px 3px 0px;padding:32px 24px;">
+        <div style="display:flex;gap:32px;align-items:center;">
+            <div style="width:80px;height:80px;border-radius:50%;background:var(--body-bg-color);display:flex;align-items:center;justify-content:center;font-size:2.5em;font-weight:bold;color:var(--blue-color);">
+                {{ employee.index }}
+            </div>
+            <div>
+                <div style="font-size:1.4em;font-weight:bold;">{{ employee.full_name }}</div>
+                <div style="color:var(--gray-color);margin-top:4px;">{{ employee.email }}</div>
+                {% if employee.role %}
+                    <div style="color:var(--blue-color);font-size:1em;margin-top:4px;">{{ employee.role.name }}</div>
+                {% endif %}
+                {% if employee.company %}
+                    <div style="font-size:0.95em;color:var(--dark-color);margin-top:4px;">{{ employee.company.name }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr style="margin:24px 0; border:none; border-top:1px solid var(--border-color);"/>
+
+        <div class="input-group">
+            <div class="input-label">Дата рождения:</div>
+            <div class="input-field" style="background:transparent;border:none;padding:0;">
+                {% if employee.birth_date %}{{ employee.birth_date.strftime('%d.%m.%Y') }}{% else %}—{% endif %}
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-label">Дата приёма на работу:</div>
+            <div class="input-field" style="background:transparent;border:none;padding:0;">
+                {{ employee.hire_date.strftime('%d.%m.%Y') }}
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-label">Контакты:</div>
+            <div class="input-field" style="background:transparent;border:none;padding:0;">
+                {% if employee.contacts %}{{ employee.contacts | safe }}{% else %}—{% endif %}
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-label">Отделы:</div>
+            <div class="input-field" style="background:transparent;border:none;padding:0;">
+                {% if employee.departments %}
+                    {{ employee.departments | map(attribute='name') | join(', ') }}
+                {% else %}—{% endif %}
+            </div>
+        </div>
+        <div class="input-group">
+            <div class="input-label">Проекты:</div>
+            <div class="input-field" style="background:transparent;border:none;padding:0;">
+                {% if employee.projects %}
+                    {{ employee.projects | map(attribute='name') | join(', ') }}
+                {% else %}—{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

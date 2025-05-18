@@ -74,7 +74,7 @@
                     <p>Задачи и мероприятия</p>
                 </a>
                 <hr class="nav-divider">
-                <a href="/ai" class="nav-button {% if active_page == 'ai' %}active{% endif %} assistant">
+                <a href="/assistant" class="nav-button {% if active_page == 'ai' %}active{% endif %} assistant">
                     <svg class="svg-icon" viewBox="0 0 20 20">
                         <path fill="none" d="M8.652,16.404c-0.186,0-0.337,0.151-0.337,0.337v2.022c0,0.186,0.151,0.337,0.337,0.337s0.337-0.151,0.337-0.337v-2.022C8.989,16.555,8.838,16.404,8.652,16.404z"></path>
                         <path fill="none" d="M11.348,16.404c-0.186,0-0.337,0.151-0.337,0.337v2.022c0,0.186,0.151,0.337,0.337,0.337s0.337-0.151,0.337-0.337v-2.022C11.685,16.555,11.535,16.404,11.348,16.404z"></path>
@@ -85,7 +85,7 @@
                     <p>AI-ассистент</p></a>
                 <hr class="nav-divider">
                 <div class="section-header">Чаты</div>
-                <a href="/chat/create" class="create-chat-button">Создать группу</a>
+                <a href="/create_chat" class="create-chat-button">Создать группу</a>
                 <div class="recent-chats">
                     {% for chat in chats %}
                         <a href="/chat/{{ chat.id }}" class="chat-item {% if active_page == 'chat_' + chat.id|string %}active{% endif %}">

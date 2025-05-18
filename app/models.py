@@ -140,6 +140,18 @@ class Department(TimestampMixin, db.Model):
     def index(self) -> str:
         return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "company_id": self.company_id,
+            "employees": [emp.id for emp in self.employees],
+            "projects": [proj.id for proj in self.projects],
+        }
+
+    def __str__(self):
+        return f"Department {self.to_dict()}"
 
 class Role(TimestampMixin, db.Model):
     __tablename__ = "role"
@@ -205,6 +217,28 @@ class Employee(TimestampMixin, db.Model):
     def index(self) -> str:
         return "".join(i[0] for i in self.full_name.title().split())
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "surname": self.surname,
+            "name": self.name,
+            "patronymic": self.patronymic,
+            "full_name": self.full_name,
+            "hire_date": self.hire_date.isoformat() if self.hire_date else None,
+            "birth_date": self.birth_date.isoformat() if self.birth_date else None,
+            "contacts": self.contacts,
+            "email": self.email,
+            "company_id": self.company_id,
+            "role_id": self.role_id,
+            "departments": [dept.id for dept in self.departments],
+            "projects": [proj.id for proj in self.projects],
+            "tasks": [task.id for task in self.tasks],
+            "events": [event.id for event in self.events],
+            "chats": [chat.id for chat in self.chats],
+        }
+
+    def __str__(self):
+        return f"Employee {self.to_dict()}"
 
 class Project(TimestampMixin, db.Model):
     __tablename__ = "project"
@@ -231,6 +265,20 @@ class Project(TimestampMixin, db.Model):
     def index(self) -> str:
         return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "status": self.status.value if self.status else None,
+            "company_id": self.company_id,
+            "responsible_dept_id": self.responsible_dept_id,
+            "employees": [emp.id for emp in self.employees],
+            "tasks": [task.id for task in self.tasks],
+        }
+    
+    def __str__(self):
+        return f"Project {self.to_dict()}"
 
 class Task(TimestampMixin, db.Model):
     __tablename__ = "task"
@@ -255,6 +303,22 @@ class Task(TimestampMixin, db.Model):
     @property
     def index(self) -> str:
         return "".join(i[0] for i in self.name.title().split()) + '-' + str(self.id)
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "start_date": self.start_date.isoformat() if self.start_date else None,
+            "due_date": self.due_date.isoformat() if self.due_date else None,
+            "priority": self.priority,
+            "status": self.status.value if self.status else None,
+            "project_id": self.project_id,
+            "employees": [emp.id for emp in self.employees],
+        }
+    
+    def __str__(self):
+        return f"Task {self.to_dict()}"
 
 class KnowledgeBase(TimestampMixin, db.Model):
     __tablename__ = "knowledge_base"
