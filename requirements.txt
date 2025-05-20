@@ -39,7 +39,7 @@ Markdown==3.5
 MarkupSafe==3.0.2
 marshmallow==3.20.1
 numpy==1.26.4
-openai==1.1.1
+openai==1.79.0
 packaging==25.0
 Pillow==10.0.1
 pluggy==1.6.0
